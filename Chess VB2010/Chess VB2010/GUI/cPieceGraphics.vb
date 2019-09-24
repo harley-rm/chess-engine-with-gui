@@ -24,7 +24,6 @@
         g.DrawImage(BITMAP, 0, 0, _heldPieceSize, _heldPieceSize)
         Me._bitmap = b
 
-
         Me.Size = New Size(Me._heldPieceSize, Me._heldPieceSize)
         Me.SizeMode = PictureBoxSizeMode.StretchImage
         Me.Image = Me._bitmap

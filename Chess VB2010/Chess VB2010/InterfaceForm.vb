@@ -2,19 +2,29 @@
 Public Class InterfaceForm
 
     Public chess As cGame
-    Public WithEvents guiPanel As cGameGUI
-    Public minSize As Size = Me.Size
+    Public WithEvents gui_panel As cGameGUI
+    Public min_size As Size = Me.Size
     Public settings As sSettings
 
-    Public Function getGameGUI() As cGameGUI
-        Return Me.guiPanel
+    Public state As interface_state
+
+    Public WithEvents main_account As cAccount
+    Public WithEvents secondary_account As cAccount 'the account object used by player2 if a local game is being played, otherwise is set to null.
+
+    Public main_account_window As cAccountWindow
+    Public secondary_account_window As cAccountWindow
+
+    Private media As media_controller
+
+    Public Function get_game_gui() As cGameGUI
+        Return Me.gui_panel
     End Function
 
 #Region "UI"
 
 #Region "Events"
     ''general ui interaction''
-    Private Sub FormDoubleClick(sender As Object, e As EventArgs) Handles TitleStripPanel.DoubleClick, MyBase.DoubleClick, TitleLabel.DoubleClick, guiPanel.DoubleClick
+    Private Sub FormDoubleClick(sender As Object, e As EventArgs) Handles TitleStripPanel.DoubleClick, MyBase.DoubleClick, TitleLabel.DoubleClick, gui_panel.DoubleClick
         If Me.WindowState = FormWindowState.Normal Then
             Me.WindowState = FormWindowState.Maximized
             Me.nwseResizeButton.Hide()
@@ -31,10 +41,10 @@ Public Class InterfaceForm
     ''drag-drop functionality''
     Private _xStart As Integer
     Private _yStart As Integer
-    Private Sub FormMouseDown(sender As Object, e As MouseEventArgs) Handles TitleStripPanel.MouseDown, MyBase.MouseDown, TitleLabel.MouseDown, guiPanel.MouseDown
+    Private Sub FormMouseDown(sender As Object, e As MouseEventArgs) Handles TitleStripPanel.MouseDown, MyBase.MouseDown, TitleLabel.MouseDown, gui_panel.MouseDown
         _xStart = e.X : _yStart = e.Y
     End Sub
-    Private Sub FormDragDrop(sender As Object, e As MouseEventArgs) Handles TitleStripPanel.MouseMove, MyBase.MouseMove, TitleLabel.MouseMove, guiPanel.MouseMove
+    Private Sub FormDragDrop(sender As Object, e As MouseEventArgs) Handles TitleStripPanel.MouseMove, MyBase.MouseMove, TitleLabel.MouseMove, gui_panel.MouseMove
         If e.Button = MouseButtons.Left Then
             Me.Location = New Point(Me.Left + e.X - _xStart, Me.Top + e.Y - _yStart)
         End If
@@ -87,7 +97,7 @@ Public Class InterfaceForm
     Private Sub nwseResize(sender As Object, e As MouseEventArgs) Handles nwseResizeButton.MouseMove
         If e.Button = MouseButtons.Left Then
             Dim newSize As Size = New Size(_ogFormSize.Width + e.X - _nwseXStart, _ogFormSize.Height + e.Y - _nwseYStart)
-            If newSize.Width >= minSize.Width AndAlso newSize.Height >= minSize.Height Then
+            If newSize.Width >= min_size.Width AndAlso newSize.Height >= min_size.Height Then
                 Me.Size = newSize
 
             End If
@@ -96,7 +106,7 @@ Public Class InterfaceForm
     Private Sub nwseMouseUp(sender As Object, e As MouseEventArgs) Handles nwseResizeButton.MouseUp
         nwseResizeButton.Location = New Point(Me.Width - nwseResizeButton.Width, Me.Height - nwseResizeButton.Height)
         _resizeInProgress = False
-        FormResize(Me, New EventArgs)
+        e_form_resize(Me, New EventArgs)
     End Sub
 
     'vrt resize
@@ -111,13 +121,13 @@ Public Class InterfaceForm
     Private Sub vrtResize(sender As Object, e As MouseEventArgs) Handles vrtResizeButton.MouseMove
         If e.Button = MouseButtons.Left Then
             Dim newSize As Size = New Size(_ogFormSize.Width, _ogFormSize.Height + e.Y - _vrtYStart)
-            If newSize.Width >= minSize.Width AndAlso newSize.Height >= minSize.Height Then Me.Size = newSize
+            If newSize.Width >= min_size.Width AndAlso newSize.Height >= min_size.Height Then Me.Size = newSize
         End If
     End Sub
     Private Sub vrtMouseUp(sender As Object, e As MouseEventArgs) Handles vrtResizeButton.MouseUp
         vrtResizeButton.Location = New Point(0, Me.Height - vrtResizeButton.Height)
         _resizeInProgress = False
-        FormResize(Me, New EventArgs)
+        e_form_resize(Me, New EventArgs)
     End Sub
 
     'hrz resize
@@ -132,13 +142,14 @@ Public Class InterfaceForm
     Private Sub hrzResize(sender As Object, e As MouseEventArgs) Handles hrzResizeButton.MouseMove
         If e.Button = MouseButtons.Left Then
             Dim newSize As Size = New Size(_ogFormSize.Width + e.X - Me._hrzXStart, _ogFormSize.Height)
-            If newSize.Width >= minSize.Width AndAlso newSize.Height >= minSize.Height Then Me.Size = newSize
+            If newSize.Width >= min_size.Width AndAlso newSize.Height >= min_size.Height Then Me.Size = newSize
         End If
     End Sub
+
     Private Sub hrzMouseUp(sender As Object, e As MouseEventArgs) Handles hrzResizeButton.MouseUp
         hrzResizeButton.Location = New Point(Me.Width - hrzResizeButton.Width, 0)
         _resizeInProgress = False
-        FormResize(Me, New EventArgs)
+        e_form_resize(Me, New EventArgs)
     End Sub
 #End Region
 
@@ -148,17 +159,20 @@ Public Class InterfaceForm
 
 #Region "Board, move-list, chat etc"
 
-    Private Sub FormLoad(sender As Object, e As EventArgs) Handles MyBase.Load
-        settings.Load()
+    Private Sub e_form_load(sender As Object, e As EventArgs) Handles MyBase.Load
+        settings.load()
+        Me.state = interface_state.single_player
         chess = New cGame(Me, settings)
-        guiPanel = chess.getGameGUI
-        Me.minSize = Me.Size
-        settings.PutInEffect(Me, guiPanel)
+        gui_panel = chess.get_gui
+        Me.min_size = Me.Size
+        settings.enact(Me, gui_panel)
+        media = New media_controller(Me.select_button, Me.start_stop_button, Me.skip_button, Me.prev_button)
+        cAccount.initialize_account_management()
     End Sub
 
-    Private Sub FormResize(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
-        If chess IsNot Nothing AndAlso Not _resizeInProgress Then
-            chess.getGameGUI.ResizeComponents(Me.Size)
+    Private Sub e_form_resize(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
+        If chess IsNot Nothing AndAlso Not _resizeInProgress AndAlso Me.WindowState <> WindowState.Minimized Then
+            chess.get_gui.ResizeComponents(Me.Size)
             Me.TitleStripPanel.BringToFront()
             Me.nwseResizeButton.Location = New Point(Me.Width - Me.nwseResizeButton.Width, Me.Height - Me.nwseResizeButton.Height)
 
@@ -167,45 +181,85 @@ Public Class InterfaceForm
 
             Me.hrzResizeButton.Size = New Size(hrzResizeButton.Width, Me.Height - nwseResizeButton.Height)
             Me.hrzResizeButton.Location = New Point(Me.Width - Me.hrzResizeButton.Width, 0)
+
+            If Me.main_account_window IsNot Nothing Then
+                Me.main_account_window.Size = New Size(Me.gui_panel.getBoardGUI.Location.X - 10, CInt(Me.gui_panel.getBoardGUI.Height / 8))
+                Me.main_account_window.Location = New Point(5, Me.gui_panel.getBoardGUI.Location.Y)
+            End If
         End If
     End Sub
 
 
-    Private Sub NewGame(sender As Object, e As EventArgs) Handles NewGameButton.Click
+    Private Sub e_newgame_click(sender As Object, e As EventArgs) Handles NewGameButton.Click
         Dim x As DialogResult = MessageBox.Show("Are you sure you want to start a new game?", "?", MessageBoxButtons.YesNo)
         If x = DialogResult.Yes Then
-            Me.Controls.Remove(chess._gameGUI)
-            chess = Nothing
-            chess = New cGame(Me, Me.settings)
-            Me.guiPanel = Me.chess.getGameGUI
-            Me.settings.PutInEffect(Me, Me.guiPanel)
+            Me.start_new_game()
         End If
     End Sub
 
-    Private Sub UndoMove(sender As Object, e As EventArgs) Handles UndoMoveButton.Click
+    Public Sub start_new_game()
+        Me.Controls.Remove(chess._gameGUI)
+        chess = Nothing
+        chess = New cGame(Me, Me.settings)
+        Me.gui_panel = Me.chess.get_gui
+        Me.settings.enact(Me, Me.gui_panel)
+    End Sub
+
+    Private Sub e_undo_click(sender As Object, e As EventArgs) Handles UndoMoveButton.Click
         Dim x As DialogResult = MessageBox.Show("Are you sure you want to undo your move?", "?", MessageBoxButtons.YesNo)
         If x = DialogResult.Yes Then
-            Me.chess.UndoMove()
-            Me.guiPanel = Me.chess.getGameGUI
+            Me.chess.undo_move()
+            Me.gui_panel = Me.chess.get_gui
         End If
     End Sub
 
-    Private Sub GetEvaluation(sender As Object, e As MouseEventArgs) Handles ShowEngineEvalButton.MouseDown
+    Private Sub e_geteval_click(sender As Object, e As MouseEventArgs) Handles ShowEngineEvalButton.MouseDown
         If e.Button = Windows.Forms.MouseButtons.Left Then
-            MsgBox(New sEval(Me.chess.getBoard).toString)
+            MsgBox(New sEval(Me.chess.get_board).toString)
         Else
-            MsgBox(Minimax.getBestMove(2, Me.chess.getBoard).ToString(Me.chess.getBoard))
+            MsgBox(Minimax.calc_best_move(1, Me.chess.get_board).ToString(Me.chess.get_board))
         End If
     End Sub
 
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles FlipBoardButton.Click
-        Me.chess._gameGUI.getBoardGUI.FlipBoard()
+    Private Sub e_flipboard_click(sender As Object, e As EventArgs) Handles FlipBoardButton.Click
+        Me.chess._gameGUI.getBoardGUI.flip_board()
     End Sub
 
-    Private Sub SettingsButtonClick(sender As Object, e As EventArgs) Handles SettingsButton.Click
-        SettingsForm.Show()
+    Private Sub e_settings_click(sender As Object, e As EventArgs) Handles SettingsButton.Click
+        SettingsForm.ShowDialog()
     End Sub
 
 #End Region
+
+    Private Sub e_form_previewkeydown(sender As Object, e As PreviewKeyDownEventArgs) Handles MyBase.PreviewKeyDown
+        Dim moveListAcceptedKeys() As Keys = {Keys.Left, Keys.Down, Keys.Up, Keys.Right}
+        If moveListAcceptedKeys.Contains(e.KeyCode) Then
+            Me.chess.get_gui.getMoveList.e_previewkeydown(sender, e)
+        End If
+    End Sub
+
+    Private Sub e_login_click(sender As Object, e As EventArgs) Handles login_out_label.Click
+        LoginForm.ShowDialog()
+    End Sub
+
+    Private Sub e_signup_click(sender As Object, e As EventArgs) Handles sign_up_label.Click
+        SignupForm.ShowDialog()
+    End Sub
+
+    Public Sub e_login_successful(sender As cAccount)
+        Me.main_account = sender
+        Me.main_account_window = New cAccountWindow(sender)
+        Me.gui_panel.Controls.Add(Me.main_account_window)
+        Me.main_account_window.Size = New Size(Me.gui_panel.getBoardGUI.Location.X - 10, 45)
+        Me.main_account_window.Location = New Point(5, Me.gui_panel.getBoardGUI.Location.Y)
+        Me.login_out_label.Hide()
+        Me.sign_up_label.Hide()
+    End Sub
+
+    Private Sub PlayButton_Click(sender As Object, e As EventArgs) Handles PlayButton.Click
+        Dim a As OpenFileDialog = New OpenFileDialog
+        a.Filter = "PGN (.pgn)|*.pgn"
+        a.ShowDialog()
+    End Sub
 
 End Class

@@ -1,0 +1,10 @@
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\bin\Release\Chess VB2010.exe
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\bin\Release\Chess VB2010.pdb
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\bin\Release\Chess VB2010.xml
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Release\Chess_VB2010.InterfaceForm.resources
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Release\Chess_VB2010.Resources.resources
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Release\Chess_VB2010.SettingsForm.resources
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Release\Chess VB2010.vbproj.GenerateResource.Cache
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Release\Chess VB2010.exe
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Release\Chess VB2010.xml
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Release\Chess VB2010.pdb

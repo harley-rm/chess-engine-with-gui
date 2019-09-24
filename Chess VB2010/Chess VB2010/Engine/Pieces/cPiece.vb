@@ -19,30 +19,26 @@ Public MustInherit Class cPiece
         End With
     End Sub
 
-    Public MustOverride Function getChar() As Char
-    Public MustOverride Function getPseudoLegalMoves(BOARD As cBoard) As sMove()
+    Public MustOverride Function get_char() As Char
+    Public MustOverride Function calc_pseudo(BOARD As cBoard) As sMove()
 
 #Region "Mutators and Accessors"
-    Public Function getTitle() As Chessman
+    Public Function get_title() As Chessman
         Return Me._title
     End Function
 
-    Public Function getCoordinate() As Byte
+    Public Function get_coordinate() As Byte
         Return Me._coordinate
     End Function
-    Public Overloads Sub setCoordinate(VALUE As Byte)
+    Public Sub set_coordinate(VALUE As Byte)
         Me._coordinate = VALUE
     End Sub
-    Public Overloads Sub setCoordinate(VALUE As Integer)
-        If VALUE < 0 Then Throw New Exception("INVALID BOARD COORDINATE")
-        Me._coordinate = CByte(VALUE)
-    End Sub
 
-    Public Function getAlliance() As Alliance
+    Public Function get_alliance() As Alliance
         Return Me._alliance
     End Function
 
-    Public Function getValue() As Integer
+    Public Function get_value() As Integer
         Return Me._value
     End Function
 #End Region

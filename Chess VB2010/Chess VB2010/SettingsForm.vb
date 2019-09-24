@@ -3,7 +3,7 @@
     Private _settings As sSettings
 
     Public Sub FormLoad(SENDER As Object, E As EventArgs) Handles MyBase.Load
-        _settings.Load()
+        _settings.load()
 
         lPanel.BackColor = _settings.lightSquare
         dPanel.BackColor = _settings.darkSquare
@@ -31,8 +31,8 @@
         _settings.showLegalMoves = showLegalCB.Checked
         _settings.enableCheats = cheatsCB.Checked
         _settings.nightMode = nightModeCB.Checked
-        _settings.PutInEffect(InterfaceForm, InterfaceForm.guiPanel)
-        _settings.Save()
+        _settings.enact(InterfaceForm, InterfaceForm.gui_panel)
+        _settings.save()
         Me.Close()
     End Sub
 

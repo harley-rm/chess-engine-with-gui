@@ -23,6 +23,8 @@ Partial Class InterfaceForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.TitleStripPanel = New System.Windows.Forms.Panel()
+        Me.sign_up_label = New System.Windows.Forms.Label()
+        Me.login_out_label = New System.Windows.Forms.Label()
         Me.TitleLabel = New System.Windows.Forms.Label()
         Me.CloseButton = New System.Windows.Forms.PictureBox()
         Me.MaximizeButton = New System.Windows.Forms.PictureBox()
@@ -35,6 +37,11 @@ Partial Class InterfaceForm
         Me.nwseResizeButton = New System.Windows.Forms.Panel()
         Me.hrzResizeButton = New System.Windows.Forms.Panel()
         Me.vrtResizeButton = New System.Windows.Forms.Panel()
+        Me.media_controls_panel = New System.Windows.Forms.Panel()
+        Me.select_button = New System.Windows.Forms.Button()
+        Me.skip_button = New System.Windows.Forms.PictureBox()
+        Me.start_stop_button = New System.Windows.Forms.PictureBox()
+        Me.prev_button = New System.Windows.Forms.PictureBox()
         Me.FlipBoardButton = New System.Windows.Forms.PictureBox()
         Me.ShowEngineEvalButton = New System.Windows.Forms.PictureBox()
         Me.UndoMoveButton = New System.Windows.Forms.PictureBox()
@@ -45,6 +52,10 @@ Partial Class InterfaceForm
         CType(Me.MaximizeButton, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MinimizeButton, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStripPanel.SuspendLayout()
+        Me.media_controls_panel.SuspendLayout()
+        CType(Me.skip_button, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.start_stop_button, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.prev_button, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.FlipBoardButton, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ShowEngineEvalButton, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UndoMoveButton, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -56,6 +67,8 @@ Partial Class InterfaceForm
         Me.TitleStripPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TitleStripPanel.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.TitleStripPanel.Controls.Add(Me.sign_up_label)
+        Me.TitleStripPanel.Controls.Add(Me.login_out_label)
         Me.TitleStripPanel.Controls.Add(Me.TitleLabel)
         Me.TitleStripPanel.Controls.Add(Me.CloseButton)
         Me.TitleStripPanel.Controls.Add(Me.MaximizeButton)
@@ -64,6 +77,30 @@ Partial Class InterfaceForm
         Me.TitleStripPanel.Name = "TitleStripPanel"
         Me.TitleStripPanel.Size = New System.Drawing.Size(989, 31)
         Me.TitleStripPanel.TabIndex = 1
+        '
+        'sign_up_label
+        '
+        Me.sign_up_label.AutoSize = True
+        Me.sign_up_label.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.sign_up_label.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.sign_up_label.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.sign_up_label.Location = New System.Drawing.Point(8, 10)
+        Me.sign_up_label.Name = "sign_up_label"
+        Me.sign_up_label.Size = New System.Drawing.Size(52, 13)
+        Me.sign_up_label.TabIndex = 5
+        Me.sign_up_label.Text = "Sign-Up"
+        '
+        'login_out_label
+        '
+        Me.login_out_label.AutoSize = True
+        Me.login_out_label.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.login_out_label.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.login_out_label.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.login_out_label.Location = New System.Drawing.Point(64, 10)
+        Me.login_out_label.Name = "login_out_label"
+        Me.login_out_label.Size = New System.Drawing.Size(42, 13)
+        Me.login_out_label.TabIndex = 4
+        Me.login_out_label.Text = "Log in"
         '
         'TitleLabel
         '
@@ -82,7 +119,7 @@ Partial Class InterfaceForm
         Me.CloseButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CloseButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.CloseButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.CloseButton.Image = Global.Chess_VB2010.My.Resources.Resources.close_window
+        Me.CloseButton.Image = Global.chess.My.Resources.Resources.close_window
         Me.CloseButton.Location = New System.Drawing.Point(954, 3)
         Me.CloseButton.Name = "CloseButton"
         Me.CloseButton.Size = New System.Drawing.Size(23, 23)
@@ -95,7 +132,7 @@ Partial Class InterfaceForm
         Me.MaximizeButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MaximizeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.MaximizeButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.MaximizeButton.Image = Global.Chess_VB2010.My.Resources.Resources.maximize_window
+        Me.MaximizeButton.Image = Global.chess.My.Resources.Resources.maximize_window
         Me.MaximizeButton.Location = New System.Drawing.Point(926, 3)
         Me.MaximizeButton.Name = "MaximizeButton"
         Me.MaximizeButton.Size = New System.Drawing.Size(23, 23)
@@ -108,7 +145,7 @@ Partial Class InterfaceForm
         Me.MinimizeButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MinimizeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.MinimizeButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.MinimizeButton.Image = Global.Chess_VB2010.My.Resources.Resources.minimize_window
+        Me.MinimizeButton.Image = Global.chess.My.Resources.Resources.minimize_window
         Me.MinimizeButton.Location = New System.Drawing.Point(898, 3)
         Me.MinimizeButton.Name = "MinimizeButton"
         Me.MinimizeButton.Size = New System.Drawing.Size(23, 23)
@@ -135,7 +172,7 @@ Partial Class InterfaceForm
         Me.SettingsButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SettingsButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SettingsButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.SettingsButton.Location = New System.Drawing.Point(178, 2)
+        Me.SettingsButton.Location = New System.Drawing.Point(178, 4)
         Me.SettingsButton.Name = "SettingsButton"
         Me.SettingsButton.Size = New System.Drawing.Size(67, 17)
         Me.SettingsButton.TabIndex = 3
@@ -147,7 +184,7 @@ Partial Class InterfaceForm
         Me.AnalysisButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.AnalysisButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AnalysisButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.AnalysisButton.Location = New System.Drawing.Point(107, 2)
+        Me.AnalysisButton.Location = New System.Drawing.Point(107, 4)
         Me.AnalysisButton.Name = "AnalysisButton"
         Me.AnalysisButton.Size = New System.Drawing.Size(68, 17)
         Me.AnalysisButton.TabIndex = 2
@@ -159,7 +196,7 @@ Partial Class InterfaceForm
         Me.OnlineButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.OnlineButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.OnlineButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.OnlineButton.Location = New System.Drawing.Point(47, 2)
+        Me.OnlineButton.Location = New System.Drawing.Point(47, 4)
         Me.OnlineButton.Name = "OnlineButton"
         Me.OnlineButton.Size = New System.Drawing.Size(55, 17)
         Me.OnlineButton.TabIndex = 1
@@ -172,7 +209,7 @@ Partial Class InterfaceForm
         Me.PlayButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PlayButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PlayButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.PlayButton.Location = New System.Drawing.Point(3, 2)
+        Me.PlayButton.Location = New System.Drawing.Point(3, 4)
         Me.PlayButton.Name = "PlayButton"
         Me.PlayButton.Size = New System.Drawing.Size(39, 17)
         Me.PlayButton.TabIndex = 0
@@ -203,12 +240,68 @@ Partial Class InterfaceForm
         Me.vrtResizeButton.Size = New System.Drawing.Size(973, 12)
         Me.vrtResizeButton.TabIndex = 5
         '
+        'media_controls_panel
+        '
+        Me.media_controls_panel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.media_controls_panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.media_controls_panel.Controls.Add(Me.select_button)
+        Me.media_controls_panel.Controls.Add(Me.skip_button)
+        Me.media_controls_panel.Controls.Add(Me.start_stop_button)
+        Me.media_controls_panel.Controls.Add(Me.prev_button)
+        Me.media_controls_panel.Location = New System.Drawing.Point(841, 71)
+        Me.media_controls_panel.Name = "media_controls_panel"
+        Me.media_controls_panel.Size = New System.Drawing.Size(99, 57)
+        Me.media_controls_panel.TabIndex = 8
+        Me.media_controls_panel.Visible = False
+        '
+        'select_button
+        '
+        Me.select_button.Location = New System.Drawing.Point(3, 4)
+        Me.select_button.Name = "select_button"
+        Me.select_button.Size = New System.Drawing.Size(92, 20)
+        Me.select_button.TabIndex = 3
+        Me.select_button.Text = "select playlist"
+        Me.select_button.UseVisualStyleBackColor = True
+        '
+        'skip_button
+        '
+        Me.skip_button.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.skip_button.Image = Global.chess.My.Resources.Resources.skip
+        Me.skip_button.Location = New System.Drawing.Point(69, 29)
+        Me.skip_button.Name = "skip_button"
+        Me.skip_button.Size = New System.Drawing.Size(27, 23)
+        Me.skip_button.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.skip_button.TabIndex = 2
+        Me.skip_button.TabStop = False
+        '
+        'start_stop_button
+        '
+        Me.start_stop_button.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.start_stop_button.Image = Global.chess.My.Resources.Resources.play
+        Me.start_stop_button.Location = New System.Drawing.Point(36, 29)
+        Me.start_stop_button.Name = "start_stop_button"
+        Me.start_stop_button.Size = New System.Drawing.Size(27, 23)
+        Me.start_stop_button.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.start_stop_button.TabIndex = 1
+        Me.start_stop_button.TabStop = False
+        '
+        'prev_button
+        '
+        Me.prev_button.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.prev_button.Image = Global.chess.My.Resources.Resources.previous
+        Me.prev_button.Location = New System.Drawing.Point(3, 29)
+        Me.prev_button.Name = "prev_button"
+        Me.prev_button.Size = New System.Drawing.Size(27, 23)
+        Me.prev_button.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.prev_button.TabIndex = 0
+        Me.prev_button.TabStop = False
+        '
         'FlipBoardButton
         '
         Me.FlipBoardButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FlipBoardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.FlipBoardButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.FlipBoardButton.Image = Global.Chess_VB2010.My.Resources.Resources.flip_board
+        Me.FlipBoardButton.Image = Global.chess.My.Resources.Resources.flip_board
         Me.FlipBoardButton.Location = New System.Drawing.Point(824, 42)
         Me.FlipBoardButton.Name = "FlipBoardButton"
         Me.FlipBoardButton.Size = New System.Drawing.Size(23, 23)
@@ -221,7 +314,7 @@ Partial Class InterfaceForm
         Me.ShowEngineEvalButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ShowEngineEvalButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.ShowEngineEvalButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ShowEngineEvalButton.Image = Global.Chess_VB2010.My.Resources.Resources.show_engine_move
+        Me.ShowEngineEvalButton.Image = Global.chess.My.Resources.Resources.show_engine_move
         Me.ShowEngineEvalButton.Location = New System.Drawing.Point(938, 42)
         Me.ShowEngineEvalButton.Name = "ShowEngineEvalButton"
         Me.ShowEngineEvalButton.Size = New System.Drawing.Size(23, 23)
@@ -234,7 +327,7 @@ Partial Class InterfaceForm
         Me.UndoMoveButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.UndoMoveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.UndoMoveButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.UndoMoveButton.Image = Global.Chess_VB2010.My.Resources.Resources.undo_move
+        Me.UndoMoveButton.Image = Global.chess.My.Resources.Resources.undo_move
         Me.UndoMoveButton.Location = New System.Drawing.Point(899, 42)
         Me.UndoMoveButton.Name = "UndoMoveButton"
         Me.UndoMoveButton.Size = New System.Drawing.Size(23, 23)
@@ -247,7 +340,7 @@ Partial Class InterfaceForm
         Me.NewGameButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.NewGameButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.NewGameButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.NewGameButton.Image = Global.Chess_VB2010.My.Resources.Resources.new_game
+        Me.NewGameButton.Image = Global.chess.My.Resources.Resources.new_game
         Me.NewGameButton.Location = New System.Drawing.Point(863, 42)
         Me.NewGameButton.Name = "NewGameButton"
         Me.NewGameButton.Size = New System.Drawing.Size(23, 23)
@@ -258,7 +351,7 @@ Partial Class InterfaceForm
         'MenuCollapseButton
         '
         Me.MenuCollapseButton.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.MenuCollapseButton.BackgroundImage = Global.Chess_VB2010.My.Resources.Resources.arrow_left
+        Me.MenuCollapseButton.BackgroundImage = Global.chess.My.Resources.Resources.arrow_left
         Me.MenuCollapseButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.MenuCollapseButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.MenuCollapseButton.Location = New System.Drawing.Point(337, 40)
@@ -272,6 +365,7 @@ Partial Class InterfaceForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(27, Byte), Integer), CType(CType(27, Byte), Integer), CType(CType(27, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(981, 566)
+        Me.Controls.Add(Me.media_controls_panel)
         Me.Controls.Add(Me.FlipBoardButton)
         Me.Controls.Add(Me.ShowEngineEvalButton)
         Me.Controls.Add(Me.UndoMoveButton)
@@ -293,6 +387,10 @@ Partial Class InterfaceForm
         CType(Me.MinimizeButton, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStripPanel.ResumeLayout(False)
         Me.MenuStripPanel.PerformLayout()
+        Me.media_controls_panel.ResumeLayout(False)
+        CType(Me.skip_button, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.start_stop_button, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.prev_button, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.FlipBoardButton, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ShowEngineEvalButton, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UndoMoveButton, System.ComponentModel.ISupportInitialize).EndInit()
@@ -319,4 +417,11 @@ Partial Class InterfaceForm
     Friend WithEvents UndoMoveButton As PictureBox
     Friend WithEvents NewGameButton As PictureBox
     Friend WithEvents FlipBoardButton As PictureBox
+    Friend WithEvents login_out_label As Label
+    Friend WithEvents sign_up_label As Label
+    Friend WithEvents media_controls_panel As Panel
+    Friend WithEvents prev_button As PictureBox
+    Friend WithEvents start_stop_button As PictureBox
+    Friend WithEvents skip_button As PictureBox
+    Friend WithEvents select_button As Button
 End Class

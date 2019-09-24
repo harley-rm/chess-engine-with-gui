@@ -8,7 +8,7 @@ Public Class cPawn
         Me._value = 100
     End Sub
 
-    Public Overrides Function getChar() As Char
+    Public Overrides Function get_char() As Char
         If Me._alliance = Alliance.White Then
             Return CChar("P")
         Else
@@ -16,7 +16,7 @@ Public Class cPawn
         End If
     End Function
 
-    Public Overrides Function getPseudoLegalMoves(BOARD As cBoard) As sMove()
+    Public Overrides Function calc_pseudo(BOARD As cBoard) As sMove()
         Dim possibleMoveOffsets() As Integer = {7, 8, 9}
         Dim multiplier As Integer
         Dim legalMoves() As sMove = Nothing
@@ -24,15 +24,15 @@ Public Class cPawn
         If Me._alliance = Alliance.White Then multiplier = -1 Else multiplier = 1
         For i = 0 To UBound(possibleMoveOffsets)
             Dim targetCoordinate As Integer = Me._coordinate + possibleMoveOffsets(i) * multiplier
-            If isValidTile(targetCoordinate, Me._coordinate, (possibleMoveOffsets(i) * multiplier)) Then
+            If is_valid_tile(targetCoordinate, Me._coordinate, (possibleMoveOffsets(i) * multiplier)) Then
                 'HANDLES CAPTURE MOVES
                 If possibleMoveOffsets(i) = 7 Or possibleMoveOffsets(i) = 9 Then
-                    If BOARD.getTile(CByte(targetCoordinate)).getOccupied AndAlso
-                        BOARD.getTile(CByte(targetCoordinate)).getPiece.getAlliance <> Me._alliance Then
+                    If BOARD.getTile(CByte(targetCoordinate)).is_occupied AndAlso
+                        BOARD.getTile(CByte(targetCoordinate)).get_piece.get_alliance <> Me._alliance Then
                         ReDim Preserve legalMoves(counter)
                         legalMoves(counter) = New sMove(Me._coordinate, CByte(targetCoordinate))
                         counter += 1
-                    ElseIf BOARD.getTile(CByte(targetCoordinate)).getCoordinate = BOARD.getEnPassentCoord Then
+                    ElseIf BOARD.getTile(CByte(targetCoordinate)).get_coordinate = BOARD.getEnPassent Then
                         'HANDLES CAPTURING EN PASSENT
                         ReDim Preserve legalMoves(counter)
                         legalMoves(counter) = New sMove(Me._coordinate, CByte(targetCoordinate))
@@ -40,15 +40,15 @@ Public Class cPawn
                     End If
                 Else
                     'HANDLES FORWARDS MOVES
-                    If Not BOARD.getTile(CByte(targetCoordinate)).getOccupied Then
+                    If Not BOARD.getTile(CByte(targetCoordinate)).is_occupied Then
                         ReDim Preserve legalMoves(counter)
                         legalMoves(counter) = New sMove(Me._coordinate, CByte(targetCoordinate))
                         counter += 1
                         'HANDLES THRUSTING
                         targetCoordinate = targetCoordinate + (8 * multiplier)
-                        If isValidTile(targetCoordinate, Me._coordinate, 16 * multiplier) Then
-                            If ((Me._coordinate \ 8 + 1) = 7 AndAlso Me._alliance = Alliance.White AndAlso Not BOARD.getTile(CByte(targetCoordinate)).getOccupied) _
-                            Or ((Me._coordinate \ 8 + 1) = 2 AndAlso Me._alliance = Alliance.Black AndAlso Not BOARD.getTile(CByte(targetCoordinate)).getOccupied) Then
+                        If is_valid_tile(targetCoordinate, Me._coordinate, 16 * multiplier) Then
+                            If ((Me._coordinate \ 8 + 1) = 7 AndAlso Me._alliance = Alliance.White AndAlso Not BOARD.getTile(CByte(targetCoordinate)).is_occupied) _
+                            Or ((Me._coordinate \ 8 + 1) = 2 AndAlso Me._alliance = Alliance.Black AndAlso Not BOARD.getTile(CByte(targetCoordinate)).is_occupied) Then
                                 ReDim Preserve legalMoves(counter)
                                 legalMoves(counter) = New sMove(Me._coordinate, CByte((targetCoordinate)))
                                 counter += 1
@@ -61,7 +61,7 @@ Public Class cPawn
         Return legalMoves
     End Function
 
-    Public Function isValidTile(TARGET_COORDIANTE As Integer, OG_COORDINATE As Byte, OFFSET As Integer) As Boolean
+    Public Function is_valid_tile(TARGET_COORDIANTE As Integer, OG_COORDINATE As Byte, OFFSET As Integer) As Boolean
         Dim ogCol As Integer = (OG_COORDINATE Mod 8 + 1)
         Select Case ogCol
             Case 1

@@ -11,8 +11,8 @@ Public Class cAttackMap
         Return Me._attackers
     End Function
 
-    Public Function getAttackCount(ALLIANCE As Alliance)
-        If ALLIANCE = Chess_VB2010.Alliance.White Then Return Me._whiteAttackCount Else Return Me._blackAttackCount
+    Public Function getAttackCount(ALLIANCE As Alliance) As Byte()
+        If ALLIANCE = chess.Alliance.White Then Return Me._whiteAttackCount Else Return Me._blackAttackCount
     End Function
 #End Region
 
@@ -22,28 +22,28 @@ Public Class cAttackMap
         Next
 
         Me._board = BOARD.getDeepClone(Of cBoard)(BOARD)
-        Me.UpdateAttackersAndCounts()
+        Me.update_attackers_and_count()
     End Sub
 
-    Public Sub UpdateMap(BOARD As cBoard)
+    Public Sub update_map(BOARD As cBoard)
         Me._board = Me._board.getDeepClone(Of cBoard)(BOARD)
-        Me.UpdateAttackersAndCounts()
+        Me.update_attackers_and_count()
     End Sub
 
-    Private Sub UpdateAttackersAndCounts()
+    Private Sub update_attackers_and_count()
         For Each piece As cPiece In Me._board.getPieces(Alliance.White)
-            If piece.getPseudoLegalMoves(Me._board) IsNot Nothing Then
-                For Each move As sMove In piece.getPseudoLegalMoves(Me._board)
+            If piece.calc_pseudo(Me._board) IsNot Nothing Then
+                For Each move As sMove In piece.calc_pseudo(Me._board)
                     Me._attackers(move.dest).Add(piece)
-                    Me._whiteAttackCount(move.dest) += 1
+                    Me._whiteAttackCount(move.dest) += CByte(1)
                 Next
             End If
         Next
         For Each piece As cPiece In Me._board.getPieces(Alliance.Black)
-            If piece.getPseudoLegalMoves(Me._board) IsNot Nothing Then
-                For Each move As sMove In piece.getPseudoLegalMoves(Me._board)
+            If piece.calc_pseudo(Me._board) IsNot Nothing Then
+                For Each move As sMove In piece.calc_pseudo(Me._board)
                     Me._attackers(move.dest).Add(piece)
-                    Me._blackAttackCount(move.dest) += 1
+                    Me._blackAttackCount(move.dest) += CByte(1)
                 Next
             End If
         Next

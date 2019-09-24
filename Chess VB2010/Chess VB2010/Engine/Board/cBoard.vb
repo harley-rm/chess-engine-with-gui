@@ -5,23 +5,24 @@ Public Class cBoard
 
     Private _tiles(63) As cTile
 
-    Private _whitePseudoLegalMoves As sMove()
-    Private _blackPseudoLegalMoves As sMove()
+    Private _white_pseudo As sMove()
+    Private _black_pseudo As sMove()
 
-    Private _whitePieces As cPiece()
-    Private _blackPieces As cPiece()
+    Private _white_pieces As cPiece()
+    Private _black_pieces As cPiece()
 
-    Private _legalMoves As sMove()
+    Private _legal_moves As sMove()
 
-    Private _whosTurn As Alliance
+    Private _whose_turn As Alliance
     Private _state As GameState
 
-    Private _moveList As LinkedList(Of String)
+    Private _move_list As LinkedList(Of sMove)
+    Private _move_list_string As LinkedList(Of String)
 
     'MANAGEMENT
-    Private _enPassentCoord As Byte
-    Private _halfMoveTimer As Integer
-    Private _plyCounter As Integer
+    Private _en_passent_coord As Byte
+    Private _half_move_timer As Integer
+    Private _ply_counter As Integer
 
 #Region "Mutators and Accessors"
     Public Function getTiles() As cTile()
@@ -32,60 +33,66 @@ Public Class cBoard
         Return Me._tiles(COORDINATE)
     End Function
 
-    Public Function getWhosTurn() As Alliance
-        Return Me._whosTurn
+    Public Function getWhoseTurn() As Alliance
+        Return Me._whose_turn
     End Function
-    Public Sub setWhosTurn(VALUE As Alliance)
-        Me._whosTurn = VALUE
+    Public Sub setWhoseTurn(VALUE As Alliance)
+        Me._whose_turn = VALUE
     End Sub
 
     Public Function getLegalMoves() As sMove()
-        Return Me._legalMoves
+        Return Me._legal_moves
     End Function
 
     Public Function getPseudoLegalMoves(ALLIANCE As Alliance) As sMove()
-        If ALLIANCE = Alliance.White Then Return Me._whitePseudoLegalMoves Else Return Me._blackPseudoLegalMoves
+        If ALLIANCE = Alliance.White Then Return Me._white_pseudo Else Return Me._black_pseudo
     End Function
 
     Public Function getState() As GameState
         Return Me._state
     End Function
 
-    Public Function getEnPassentCoord() As Byte
-        Return Me._enPassentCoord
+    Public Function getEnPassent() As Byte
+        Return Me._en_passent_coord
     End Function
 
     Public Function getPieces(ALLIANCE As Alliance) As cPiece()
-        If ALLIANCE = Alliance.White Then Return Me._whitePieces Else Return Me._blackPieces
+        If ALLIANCE = Alliance.White Then Return Me._white_pieces Else Return Me._black_pieces
     End Function
-    Public Function getMoveList() As LinkedList(Of String)
-        Return Me._moveList
+    Public Function getMoveListString() As LinkedList(Of String)
+        Return Me._move_list_string
     End Function
 
-    Public Function getHalfPlyMoveTimer() As Integer
-        Return Me._halfMoveTimer
+    Public Function getMoveList() As LinkedList(Of sMove)
+        Return Me._move_list
+    End Function
+
+    Public Function getHalfMoveTimer() As Integer
+        Return Me._half_move_timer
     End Function
 #End Region
 
 #Region "Constructor"
     Public Sub New()
-        Me._moveList = New LinkedList(Of String)
-        Me.initializeTiles()
-        Me.InitializeBoard()
-        Me._whitePieces = Me.updatePieces(Alliance.White)
-        Me._blackPieces = Me.updatePieces(Alliance.Black)
-        Me._whitePseudoLegalMoves = Me.calculatePseudoLegalMoves(Alliance.White)
-        Me._blackPseudoLegalMoves = Me.calculatePseudoLegalMoves(Alliance.Black)
-        Me._legalMoves = Me.calculateLegalMoves()
+        Me._move_list = New LinkedList(Of sMove)
+        Me._move_list_string = New LinkedList(Of String)
+        Me.InitTiles()
+        Me.InitBoard()
+        Me._white_pieces = Me.updatePieces(Alliance.White)
+        Me._black_pieces = Me.updatePieces(Alliance.Black)
+        Me._white_pseudo = Me.calcPseudoLegalMoves(Alliance.White)
+        Me._black_pseudo = Me.calcPseudoLegalMoves(Alliance.Black)
+        Me._legal_moves = Me.calcLegalMoves()
     End Sub
 #End Region
 
     Public Sub SetPosition(FEN As String)
+        Throw New NotImplementedException
         'Forsyth-Edwards Notation FORMAT:
         'PIECE LOCATIONS/EMPTY SQUARES : WHOS TURN : CASTLING RIGHTS : EN-PASSENT TARGET SQUARE : HALFMOVE CLOCK : FULLMOVE NUMBER
         Dim counter As Integer = 0
         For Each tile As cTile In Me._tiles
-            tile.setPiece(Nothing)
+            tile.set_piece(Nothing)
         Next
         Dim endOf As Integer
         For i = 0 To FEN.Length - 1
@@ -99,17 +106,17 @@ Public Class cBoard
             ElseIf Asc(FEN(i)) >= 48 AndAlso Asc(FEN(i)) <= 57 Then
                 counter += Val(FEN(i))
             Else
-                Me._tiles(counter).setPiece(generatePiece(FEN(i), CByte(counter)))
+                Me._tiles(counter).set_piece(GeneratePiece(FEN(i), CByte(counter)))
                 counter += 1
             End If
         Next
         If FEN(endOf + 1) = "w" Then
-            Me._whosTurn = Alliance.White
+            Me._whose_turn = Alliance.White
         Else
-            Me._whosTurn = Alliance.Black
+            Me._whose_turn = Alliance.Black
         End If
     End Sub
-    Public Function generatePiece(C As Char, COORDINATE As Byte) As cPiece
+    Public Function GeneratePiece(C As Char, COORDINATE As Byte) As cPiece
         Dim temp As Char = C
         Dim alliance As Alliance
         If LCase(C) = temp Then alliance = Alliance.Black Else alliance = Alliance.White
@@ -129,8 +136,7 @@ Public Class cBoard
         End Select
         Return Nothing
     End Function
-
-    Public Sub initializeTiles()
+    Public Sub InitTiles()
         Dim count As Integer = 0
         Dim isLightSquare As Boolean = False
         For i = 0 To 63
@@ -142,41 +148,37 @@ Public Class cBoard
             End If
             Me._tiles(i) = New cTile(CByte(i), isLightSquare)
         Next
-        Me._enPassentCoord = 255
+        Me._en_passent_coord = 255
     End Sub
-
-    Public Function findKing(ALLIANCE As Alliance) As cKing
-        If ALLIANCE = Alliance.White Then
+    Public Function findKing(alliance As Alliance) As cKing
+        If alliance = Alliance.White Then
             For Each piece As cPiece In Me.getPieces(Alliance.White)
-                If piece.getTitle = Chessman.King Then Return CType(piece, cKing)
+                If piece.get_title = Chessman.King Then Return CType(piece, cKing)
             Next
         Else
             For Each piece As cPiece In Me.getPieces(Alliance.Black)
-                If piece.getTitle = Chessman.King Then Return CType(piece, cKing)
+                If piece.get_title = Chessman.King Then Return CType(piece, cKing)
             Next
         End If
         Return Nothing
-
     End Function
-
     ''' <summary>
     ''' Will return an updated cPiece array of all of the pieces currently on the instance of board from which it is called.
     ''' </summary>
-    ''' <param name="ALLIANCE">Alliance of the set of pieces intended to be updated.</param>
+    ''' <param name="alliance">Alliance of the set of pieces intended to be updated.</param>
     ''' <returns>Hey</returns>
-    Public Function updatePieces(ALLIANCE As Alliance) As cPiece()
+    Public Function updatePieces(alliance As Alliance) As cPiece()
         Dim temp As cPiece() = Nothing
         Dim counter As Integer = 0
         For Each t As cTile In _tiles
-            If t.getOccupied AndAlso t.getPiece.getAlliance = ALLIANCE Then
+            If t.is_occupied AndAlso t.get_piece.get_alliance = alliance Then
                 ReDim Preserve temp(counter)
-                temp(counter) = t.getPiece
+                temp(counter) = t.get_piece
                 counter += 1
             End If
         Next
         Return temp
     End Function
-
     ''' <summary>
     ''' Creates and returns a bit-wise clone of the input board, after eliminating references.
     ''' </summary>
@@ -202,52 +204,50 @@ Public Class cBoard
 
         Return CType(formatter.Deserialize(stream), cBoard)
     End Function
-
     ''' <summary>
     ''' Updates the board to represent the standard chess starting position.
     ''' </summary>
-    Private Sub InitializeBoard()
+    Private Sub InitBoard()
         'black major pieces
-        _tiles(0).setPiece(New cRook(Alliance.Black, 0))
-        _tiles(1).setPiece(New cKnight(Alliance.Black, 1))
-        _tiles(2).setPiece(New cBishop(Alliance.Black, 2))
-        _tiles(3).setPiece(New cQueen(Alliance.Black, 3))
-        _tiles(4).setPiece(New cKing(Alliance.Black, 4))
-        _tiles(5).setPiece(New cBishop(Alliance.Black, 5))
-        _tiles(6).setPiece(New cKnight(Alliance.Black, 6))
-        _tiles(7).setPiece(New cRook(Alliance.Black, 7))
+        _tiles(0).set_piece(New cRook(Alliance.Black, 0))
+        _tiles(1).set_piece(New cKnight(Alliance.Black, 1))
+        _tiles(2).set_piece(New cBishop(Alliance.Black, 2))
+        _tiles(3).set_piece(New cQueen(Alliance.Black, 3))
+        _tiles(4).set_piece(New cKing(Alliance.Black, 4))
+        _tiles(5).set_piece(New cBishop(Alliance.Black, 5))
+        _tiles(6).set_piece(New cKnight(Alliance.Black, 6))
+        _tiles(7).set_piece(New cRook(Alliance.Black, 7))
         'black pawns
         For i = 8 To 15
-            _tiles(i).setPiece(New cPawn(Alliance.Black, CByte(i)))
+            _tiles(i).set_piece(New cPawn(Alliance.Black, CByte(i)))
         Next
 
         'white pawns
         For i = 48 To 55
-            _tiles(i).setPiece(New cPawn(Alliance.White, CByte(i)))
+            _tiles(i).set_piece(New cPawn(Alliance.White, CByte(i)))
         Next
         'white major pieces
-        _tiles(56).setPiece(New cRook(Alliance.White, 56))
-        _tiles(57).setPiece(New cKnight(Alliance.White, 57))
-        _tiles(58).setPiece(New cBishop(Alliance.White, 58))
-        _tiles(59).setPiece(New cQueen(Alliance.White, 59))
-        _tiles(60).setPiece(New cKing(Alliance.White, 60))
-        _tiles(61).setPiece(New cBishop(Alliance.White, 61))
-        _tiles(62).setPiece(New cKnight(Alliance.White, 62))
-        _tiles(63).setPiece(New cRook(Alliance.White, 63))
+        _tiles(56).set_piece(New cRook(Alliance.White, 56))
+        _tiles(57).set_piece(New cKnight(Alliance.White, 57))
+        _tiles(58).set_piece(New cBishop(Alliance.White, 58))
+        _tiles(59).set_piece(New cQueen(Alliance.White, 59))
+        _tiles(60).set_piece(New cKing(Alliance.White, 60))
+        _tiles(61).set_piece(New cBishop(Alliance.White, 61))
+        _tiles(62).set_piece(New cKnight(Alliance.White, 62))
+        _tiles(63).set_piece(New cRook(Alliance.White, 63))
     End Sub
-
     ''' <summary>
     ''' Returns the pseudo-legal moves of pieces of the specified alliance.
     ''' </summary>
-    ''' <param name="ALLIANCE"></param>
-    Private Function calculatePseudoLegalMoves(ALLIANCE As Alliance) As sMove()
+    ''' <param name="alliance"></param>
+    Private Function calcPseudoLegalMoves(alliance As Alliance) As sMove()
         Dim pieceSet As cPiece()
-        If ALLIANCE = Alliance.White Then pieceSet = Me._whitePieces Else pieceSet = Me._blackPieces
+        If alliance = Alliance.White Then pieceSet = Me._white_pieces Else pieceSet = Me._black_pieces
         Dim temp As sMove() = Nothing
         Dim counter As Integer = 0
         For Each piece As cPiece In pieceSet
-            If piece.getPseudoLegalMoves(Me) IsNot Nothing Then
-                For Each move As sMove In piece.getPseudoLegalMoves(Me)
+            If piece.calc_pseudo(Me) IsNot Nothing Then
+                For Each move As sMove In piece.calc_pseudo(Me)
                     ReDim Preserve temp(counter)
                     temp(counter) = move
                     counter += 1
@@ -256,18 +256,17 @@ Public Class cBoard
         Next
         Return temp
     End Function
-
     ''' <summary>
     ''' Returns moves which are allowed by each pieces normal moves, taking pins into account.
     ''' </summary>
-    Private Function calculateLegalMoves() As sMove()
+    Private Function calcLegalMoves() As sMove()
         Dim moveSet As sMove()
         Dim temp As sMove() = Nothing
         Dim counter As Integer = 0
-        If Me._whosTurn = Alliance.White Then moveSet = Me._whitePseudoLegalMoves Else moveSet = Me._blackPseudoLegalMoves
+        If Me._whose_turn = Alliance.White Then moveSet = Me._white_pseudo Else moveSet = Me._black_pseudo
         For Each move As sMove In moveSet
             Dim x As New cGhostBoard(Me, move)
-            If x.isLegal Then
+            If x.is_legal Then
                 ReDim Preserve temp(counter)
                 temp(counter) = move
                 counter += 1
@@ -275,137 +274,135 @@ Public Class cBoard
         Next
         Return temp
     End Function
-
-    Public Function isInCheck(ALLIANCE As Alliance) As Boolean
+    Public Function isInCheck(alliance As Alliance) As Boolean
         Dim moveSet As sMove()
         Dim king As cKing
-        If ALLIANCE = Alliance.White Then moveSet = Me._blackPseudoLegalMoves Else moveSet = Me._whitePseudoLegalMoves
-        If ALLIANCE = Alliance.White Then king = Me.findKing(Alliance.White) Else king = Me.findKing(Alliance.Black)
+        If alliance = Alliance.White Then moveSet = Me._black_pseudo Else moveSet = Me._white_pseudo
+        If alliance = Alliance.White Then king = Me.findKing(Alliance.White) Else king = Me.findKing(Alliance.Black)
         If moveSet Is Nothing Then Return False 'temp
         For Each move As sMove In moveSet
-            If move.dest = king.getCoordinate Then Return True
+            If move.dest = king.get_coordinate Then Return True
         Next
         Return False
     End Function
-
-    Public Function isLegalMove(MOVE As sMove) As Boolean
-        If Me._legalMoves.Contains(MOVE) Then Return True Else Return False
+    Public Function isLegalMove(move As sMove) As Boolean
+        If Me._legal_moves IsNot Nothing AndAlso Me._legal_moves.Contains(move) Then Return True Else Return False
     End Function
-
     ''' <summary>
     ''' Updates the current instance of cBoard to reflect the move attempted, if the move is not legal, it will not be made.
     ''' </summary>
-    ''' <param name="MOVE"></param>
-    ''' <param name="FROM_TRANSITION"></param>
-    Public Sub MakeMove(MOVE As sMove, Optional FROM_TRANSITION As Boolean = False)
-        Dim movingPiece As cPiece = Me.getTile(MOVE.ogCoord).getPiece
-        Dim targetTile As cTile = Me.getTile(MOVE.dest)
+    ''' <param name="move"></param>
+    ''' <param name="fromTransition"></param>
+    Public Sub MakeMove(move As sMove, Optional fromTransition As Boolean = False)
+        If move.ogCoord = 4 AndAlso move.dest = 2 Then MsgBox("TEST")
+        Dim movingPiece As cPiece = Me.getTile(move.ogCoord).get_piece
+        Dim targetTile As cTile = Me.getTile(move.dest)
         Dim wasCapture As Boolean
-        wasCapture = Me._tiles(MOVE.dest).getOccupied
-        If FROM_TRANSITION Then
+        wasCapture = Me._tiles(move.dest).is_occupied
+        If fromTransition Then
             Dim castlingTiles As Byte() = {58, 62, 2, 6}
-            If movingPiece.getTitle = Chessman.Pawn AndAlso targetTile.getCoordinate = Me._enPassentCoord Then  'en passent capture
-                sMove.EnPassentCapture(MOVE, Me)
-            ElseIf movingPiece.getTitle = Chessman.Pawn AndAlso ((targetTile.getCoordinate \ 8 + 1 = 1) AndAlso movingPiece.getAlliance = Alliance.White) Then  'black promotion
-                sMove.Promotion(MOVE, Me)
-            ElseIf movingPiece.getTitle = Chessman.Pawn AndAlso (targetTile.getCoordinate \ 8 + 1 = 8) AndAlso movingPiece.getAlliance = Alliance.Black Then    'white promotion
-                sMove.Promotion(MOVE, Me)
-            ElseIf movingPiece.getTitle = Chessman.King AndAlso Not CType(movingPiece, cKing).getHasMoved AndAlso castlingTiles.Contains(MOVE.dest) Then        'castling
-                sMove.Castle(MOVE, Me)
+            If movingPiece.get_title = Chessman.Pawn AndAlso targetTile.get_coordinate = Me._en_passent_coord Then  'en passent capture
+                sMove.enpassent(move, Me)
+            ElseIf movingPiece.get_title = Chessman.Pawn AndAlso ((targetTile.get_coordinate \ 8 + 1 = 1) AndAlso movingPiece.get_alliance = Alliance.White) Then  'black promotion
+                sMove.promotion(move, Me)
+            ElseIf movingPiece.get_title = Chessman.Pawn AndAlso (targetTile.get_coordinate \ 8 + 1 = 8) AndAlso movingPiece.get_alliance = Alliance.Black Then    'white promotion
+                sMove.promotion(move, Me)
+            ElseIf movingPiece.get_title = Chessman.King AndAlso Not CType(movingPiece, cKing).get_moved AndAlso castlingTiles.Contains(move.dest) Then        'castling
+                sMove.castle(move, Me)
             Else    'normal move66
-                sMove.Regular(MOVE, Me)
+                sMove.regular(move, Me)
             End If
-            If movingPiece.getTitle = Chessman.King Then CType(movingPiece, cKing).setHasMoved(True)
-            Me._moveList.AddLast(MOVE.ToString)
-            Me.UpdateBoardMembers(wasCapture, movingPiece, FROM_TRANSITION)
+            If movingPiece.get_title = Chessman.King Then CType(movingPiece, cKing).set_moved(True)
+            Me._move_list_string.AddLast(move.ToString)
+            Me.UpdateMembers(wasCapture, movingPiece, fromTransition)
         Else
             Dim castlingTiles As Byte() = {58, 62, 2, 6}
-            If Me._legalMoves.Contains(MOVE) Then
+            If Me._legal_moves.Contains(move) Then
 
                 'assume the move is added to the move list by the GUI
 
-                If movingPiece.getTitle = Chessman.Pawn AndAlso targetTile.getCoordinate = Me._enPassentCoord Then  'en passent capture
-                    Me._enPassentCoord = 255
-                    sMove.EnPassentCapture(MOVE, Me)
+                If movingPiece.get_title = Chessman.Pawn AndAlso targetTile.get_coordinate = Me._en_passent_coord Then  'en passent capture
+                    Me._en_passent_coord = 255
+                    sMove.enpassent(move, Me)
                     wasCapture = True
-                ElseIf movingPiece.getTitle = Chessman.Pawn AndAlso ((targetTile.getCoordinate \ 8 + 1 = 1) AndAlso movingPiece.getAlliance = Alliance.White) Then  'black promotion
-                    sMove.Promotion(MOVE, Me)
-                ElseIf movingPiece.getTitle = Chessman.Pawn AndAlso (targetTile.getCoordinate \ 8 + 1 = 8) AndAlso movingPiece.getAlliance = Alliance.Black Then    'white promotion
-                    sMove.Promotion(MOVE, Me)
-                ElseIf movingPiece.getTitle = Chessman.King AndAlso Not CType(movingPiece, cKing).getHasMoved AndAlso castlingTiles.Contains(MOVE.dest) Then        'castling
-                    sMove.Castle(MOVE, Me)
+                ElseIf movingPiece.get_title = Chessman.Pawn AndAlso ((targetTile.get_coordinate \ 8 + 1 = 1) AndAlso movingPiece.get_alliance = Alliance.White) Then  'black promotion
+                    sMove.promotion(move, Me)
+                ElseIf movingPiece.get_title = Chessman.Pawn AndAlso (targetTile.get_coordinate \ 8 + 1 = 8) AndAlso movingPiece.get_alliance = Alliance.Black Then    'white promotion
+                    sMove.promotion(move, Me)
+                ElseIf movingPiece.get_title = Chessman.King AndAlso Not CType(movingPiece, cKing).get_moved AndAlso castlingTiles.Contains(move.dest) Then        'castling
+                    sMove.castle(move, Me)
                 Else    'normal move66
-                    sMove.Regular(MOVE, Me)
+                    sMove.regular(move, Me)
                 End If
 
                 'update the en-passent tile
-                If movingPiece.getTitle = Chessman.Pawn Then
-                    If 9 - (MOVE.ogCoord \ 8 + 1) = 2 Then
-                        If MOVE.dest = MOVE.ogCoord - 16 Then
-                            Me._enPassentCoord = CByte(MOVE.ogCoord - 8)
+                If movingPiece.get_title = Chessman.Pawn Then
+                    If 9 - (move.ogCoord \ 8 + 1) = 2 Then
+                        If move.dest = move.ogCoord - 16 Then
+                            Me._en_passent_coord = CByte(move.ogCoord - 8)
                         Else
-                            Me._enPassentCoord = 255
+                            Me._en_passent_coord = 255
                         End If
                     End If
-                    If 9 - (MOVE.ogCoord \ 8 + 1) = 7 Then
-                        If MOVE.dest = MOVE.ogCoord + 16 Then
-                            Me._enPassentCoord = CByte(MOVE.ogCoord + 8)
+                    If 9 - (move.ogCoord \ 8 + 1) = 7 Then
+                        If move.dest = move.ogCoord + 16 Then
+                            Me._en_passent_coord = CByte(move.ogCoord + 8)
                         Else
-                            Me._enPassentCoord = 255
+                            Me._en_passent_coord = 255
                         End If
                     End If
                 Else
-                    Me._enPassentCoord = 255
+                    Me._en_passent_coord = 255
                 End If
 
-                If movingPiece.getTitle = Chessman.King Then CType(movingPiece, cKing).setHasMoved(True)
+                If movingPiece.get_title = Chessman.King Then CType(movingPiece, cKing).set_moved(True)
+
+                If Not fromTransition Then Me._move_list.AddLast(move)
 
                 'updates all members of the board that need to be updated after a move.
-                Me.UpdateBoardMembers(wasCapture, movingPiece, FROM_TRANSITION)
+                Me.UpdateMembers(wasCapture, movingPiece, fromTransition)
             End If
         End If
     End Sub
-
     ''' <summary>
     ''' This updates all necessary members of board after a move is made.
     ''' </summary>
-    ''' <param name="WAS_CAPTURE"></param>
-    ''' <param name="MOVED_PIECE"></param>
-    ''' <param name="FROM_TRANSITION"></param>
-    Private Sub UpdateBoardMembers(WAS_CAPTURE As Boolean, MOVED_PIECE As cPiece, FROM_TRANSITION As Boolean)
+    ''' <param name="wasCapture"></param>
+    ''' <param name="moved"></param>
+    ''' <param name="fromTransition"></param>
+    Private Sub UpdateMembers(wasCapture As Boolean, moved As cPiece, fromTransition As Boolean)
 
-        If WAS_CAPTURE Then
-            Me._whitePieces = Me.updatePieces(Alliance.White)
-            Me._blackPieces = Me.updatePieces(Alliance.Black)
-            Debug.WriteLineIf(FROM_TRANSITION = False, "Move was recorded as a capture.")
+        If wasCapture Then
+            Me._white_pieces = Me.updatePieces(Alliance.White)
+            Me._black_pieces = Me.updatePieces(Alliance.Black)
+            Debug.WriteLineIf(fromTransition = False, "Move was recorded as a capture.")
         End If
 
-        If Me._whosTurn = Alliance.White Then
-            Me._whosTurn = Alliance.Black
-            If Not WAS_CAPTURE AndAlso MOVED_PIECE.getTitle <> Chessman.Pawn Then _halfMoveTimer += CByte(1)
+        If Me._whose_turn = Alliance.White Then
+            Me._whose_turn = Alliance.Black
+            If Not wasCapture AndAlso moved.get_title <> Chessman.Pawn Then _half_move_timer += CByte(1)
         Else
-            Me._whosTurn = Alliance.White
-            _plyCounter += 1
+            Me._whose_turn = Alliance.White
+            _ply_counter += 1
         End If
 
-        Me._whitePseudoLegalMoves = Me.calculatePseudoLegalMoves(Alliance.White)
-        Me._blackPseudoLegalMoves = Me.calculatePseudoLegalMoves(Alliance.Black)
-        If Not FROM_TRANSITION Then Me._legalMoves = Me.calculateLegalMoves()
-        Me._state = calculateBoardState()
+        Me._white_pseudo = Me.calcPseudoLegalMoves(Alliance.White)
+        Me._black_pseudo = Me.calcPseudoLegalMoves(Alliance.Black)
+        If Not fromTransition Then Me._legal_moves = Me.calcLegalMoves()
+        Me._state = calcBoardState()
 
-        'If Not FROM_TRANSITION Then Me.ShowDebugReport()
+        If Not fromTransition Then Me.ShowReport()
 
     End Sub
-
-    Public Function calculateBoardState() As GameState
-        If Me._legalMoves Is Nothing Then
+    Public Function calcBoardState() As GameState
+        If Me._legal_moves Is Nothing Then
             If Me.isInCheck(Alliance.Black) Then
-                Dim temp As String = Me._moveList.Last.Value
-                Me._moveList.Last.Value = temp & "#"
+                Dim temp As String = Me._move_list_string.Last.Value
+                Me._move_list_string.Last.Value = temp & "#"
                 Return GameState.BlackMated
             ElseIf Me.isInCheck(Alliance.White) Then
-                Dim temp As String = Me._moveList.Last.Value
-                Me._moveList.Last.Value = temp & "#"
+                Dim temp As String = Me._move_list_string.Last.Value
+                Me._move_list_string.Last.Value = temp & "#"
                 Return GameState.WhiteMated
             Else
                 Return GameState.Stalemate
@@ -413,46 +410,52 @@ Public Class cBoard
         End If
         Return GameState.ongoing
     End Function
+    Public Function isOver() As Boolean
+        With (Me)
+            If ._state <> GameState.ongoing Then Return True Else Return False
+        End With
+    End Function
+    Public Sub ShowReport()
+        Try
+            Debug.WriteLine("##################################################")
+            Debug.WriteLine("##################################################")
+            Debug.WriteLine("##################################################")
+            Debug.WriteLine("##################################################")
+            Debug.WriteLine("##################################################")
+            Debug.WriteLine("##################################################")
+            Debug.WriteLine("")
+            Debug.WriteLine("")
+            Dim ctr As Integer = 1
+            For i = 0 To 63
+                If ctr > 8 Then
+                    Debug.Write(vbCrLf)
+                    ctr = 1
+                End If
+                If Me._tiles(i).is_occupied Then
+                    Debug.Write("[" & Me._tiles(i).get_piece.get_char & "]")
+                Else
+                    Debug.Write("[ ]")
+                End If
+                ctr += 1
+            Next
+            Debug.Write(vbCrLf & vbCrLf)
 
-    Public Sub ShowDebugReport()
-        Debug.WriteLine("##################################################")
-        Debug.WriteLine("##################################################")
-        Debug.WriteLine("##################################################")
-        Debug.WriteLine("##################################################")
-        Debug.WriteLine("##################################################")
-        Debug.WriteLine("##################################################")
-        Debug.WriteLine("")
-        Debug.WriteLine("")
-
-        Dim ctr As Integer = 1
-        For i = 0 To 63
-            If ctr > 8 Then
-                Debug.Write(vbCrLf)
-                ctr = 1
-            End If
-            If Me._tiles(i).getOccupied Then
-                Debug.Write("[" & Me._tiles(i).getPiece.getChar & "]")
+            Debug.WriteLine("BOARD REPORT")
+            Debug.WriteLine("-----------------")
+            If Me._en_passent_coord <> 255 Then
+                Debug.WriteLine("En-passent coordinate: " & Me._tiles(Me._en_passent_coord).get_file & Me._tiles(Me._en_passent_coord).get_rank)
             Else
-                Debug.Write("[ ]")
+                Debug.WriteLine("En-passent coordinate: 255 [no en-passent]")
             End If
-            ctr += 1
-        Next
-        Debug.Write(vbCrLf & vbCrLf)
 
+            If Me._legal_moves IsNot Nothing Then Debug.WriteLine("Legal move count: " & Me._legal_moves.Length)
+            Debug.WriteLine("Last move: " & Me._move_list_string.Last.Value)
+            Debug.WriteLine("Whos turn: " & Me._whose_turn)
+            Debug.WriteLine("")
+            Debug.WriteLine("")
+        Catch ex As Exception
 
-        Debug.WriteLine("BOARD REPORT")
-        Debug.WriteLine("-----------------")
-        If Me._enPassentCoord <> 255 Then
-            Debug.WriteLine("En-passent coordinate: " & Me._tiles(Me._enPassentCoord).getFile & Me._tiles(Me._enPassentCoord).getRank)
-        Else
-            Debug.WriteLine("En-passent coordinate: 255 [no en-passent]")
-        End If
-
-        If Me._legalMoves IsNot Nothing Then Debug.WriteLine("Legal move count: " & Me._legalMoves.Length)
-        Debug.WriteLine("Last move: " & Me._moveList.Last.Value)
-        Debug.WriteLine("Whos turn: " & Me._whosTurn)
-        Debug.WriteLine("")
-        Debug.WriteLine("")
+        End Try
     End Sub
 
 End Class

@@ -1,7 +1,8 @@
-﻿Public Class cBoardGUI
+﻿<Serializable()>
+Public Class cBoardGUI
     Inherits Panel
 
-    Private _game As cGame
+    Private WithEvents _game As cGame
     Private _board As cBoard
     Private _gameGUI As cGameGUI
 
@@ -16,7 +17,7 @@
     Private _lastMove As sMove
     Private _ogCol As Color
     Private _destCol As Color
-    Private _showLegalMoves As Boolean
+    Private _showLegal As Boolean
 
     'drag drop graphics
     Private _ogTile As PictureBox
@@ -25,33 +26,45 @@
     'mouse enter graphics
     Private _tileBorder As cTileBorder
 
-    Public Function getLightColor() As Color
+    Private _showingGhostBoard As Boolean
+
+    Public Function calc_size() As Integer
+        Return CInt(Me.Size.Height / 8)
+    End Function
+
+
+#Region "Mutators & Accessors"
+    Public Function get_light_colour() As Color
         Return Me._lightSquare
     End Function
-    Public Sub setLightColor(VALUE As Color)
+    Public Sub set_light_colour(VALUE As Color)
         Me._lightSquare = VALUE
     End Sub
 
-    Public Function getDarkColor() As Color
+    Public Function get_dark_colour() As Color
         Return Me._darkSquare
     End Function
-    Public Sub setDarkColor(VALUE As Color)
+    Public Sub set_dark_colour(VALUE As Color)
         Me._darkSquare = VALUE
     End Sub
 
-    Public Sub setShowLegalMoves(VALUE As Boolean)
-        Me._showLegalMoves = VALUE
+    Public Sub set_show_legal(VALUE As Boolean)
+        Me._showLegal = VALUE
     End Sub
 
-    Public Sub setBoard(VALUE As cBoard)
+    Public Sub set_board(VALUE As cBoard)
         Me._board = VALUE
-        Me.UpdateGraphics()
+        Me.update_graphics()
     End Sub
+    Public Function get_board() As cBoard
+        Return Me._board
+    End Function
+#End Region
 
     Public Sub New(GAME As cGame, BOARD As cBoard, BOARD_DIMENSION As Integer, SETTINGS As sSettings, GAME_GUI As cGameGUI)
         Me._lightSquare = SETTINGS.lightSquare
         Me._darkSquare = SETTINGS.darkSquare
-        Me._showLegalMoves = SETTINGS.showLegalMoves
+        Me._showLegal = SETTINGS.showLegalMoves
 
         Me._ogCol = Color.Gold
         Me._destCol = Color.Yellow
@@ -59,6 +72,7 @@
         Me._tileBorder = New cTileBorder(CInt(BOARD_DIMENSION / 8), Color.White)
         Me.Controls.Add(Me._tileBorder)
         Me._tileBorder.BringToFront()
+        Me._tileBorder.Hide()
 
         Me._gameGUI = GAME_GUI
         Me._whiteBottom = True
@@ -74,12 +88,12 @@
         Me._board = BOARD
         Me._game = GAME
         Me.Size = New Size(BOARD_DIMENSION, BOARD_DIMENSION)
-        Me.InitializeTiles(CInt(BOARD_DIMENSION / 8))
-        Me.AddHandlers()
-        Me.UpdateGraphics()
+        Me.init_tiles(CInt(BOARD_DIMENSION / 8))
+        Me.add_handlers()
+        Me.update_graphics()
     End Sub
 
-    Public Sub ResizeAll(NEW_TILE_SIZE As Integer)
+    Public Sub resize_all(NEW_TILE_SIZE As Integer)
         Me.Size = New Size(NEW_TILE_SIZE * 8, NEW_TILE_SIZE * 8)
         Dim col As Color = Me._lightSquare
         Dim x As Integer = 0
@@ -104,10 +118,11 @@
 
     End Sub
 
-    Private Sub InitializeTiles(TILE_SIZE As Integer)
+    Private Sub init_tiles(TILE_SIZE As Integer)
         Dim col As Color = Me._lightSquare
         Dim x As Integer = 0
         Dim y As Integer = 0
+
         For i = 0 To 63
             _tiles(i) = New PictureBox
             With _tiles(i)
@@ -129,7 +144,7 @@
         Next
     End Sub
 
-    Private Function getImage(ALLIANCE As Alliance, TITLE As Chessman) As Bitmap
+    Private Function calc_image(ALLIANCE As Alliance, TITLE As Chessman) As Bitmap
         Select Case ALLIANCE
             Case Alliance.White
                 Select Case TITLE
@@ -165,13 +180,14 @@
         Return Nothing
     End Function
 
-    Public Sub UpdateGraphics()
+    Public Sub update_graphics()
+        If Me._board IsNot Nothing AndAlso Me._board.getMoveList.Last IsNot Nothing Then Me._lastMove = Me._board.getMoveList.Last.Value
         'update the back colour and resets the background image
         For i = 0 To 63
-            If _selectedPiece IsNot Nothing AndAlso _selectedPiece.getCoordinate = i Then
+            If _selectedPiece IsNot Nothing AndAlso _selectedPiece.get_coordinate = i Then
                 Me._tiles(i).BackColor = Color.Orange
             Else
-                If Me._board.getTiles(i).getIsLightSquare Then
+                If Me._board.getTiles(i).get_is_lightsquare Then
                     Me._tiles(i).BackColor = _lightSquare
                 Else
                     Me._tiles(i).BackColor = _darkSquare
@@ -181,8 +197,8 @@
         Next
         'update the image on each tile
         For i = 0 To 63
-            If Me._board.getTiles(i).getOccupied Then
-                Dim x As New Bitmap(getImage(Me._board.getTiles(i).getPiece.getAlliance, Me._board.getTiles(i).getPiece.getTitle), New Size(Me._tiles(0).Height - 5, Me._tiles(0).Height - 5))
+            If Me._board.getTiles(i).is_occupied Then
+                Dim x As New Bitmap(calc_image(Me._board.getTiles(i).get_piece.get_alliance, Me._board.getTiles(i).get_piece.get_title), New Size(Me._tiles(0).Height - 5, Me._tiles(0).Height - 5))
                 Me._tiles(i).Image = x
             Else
                 Me._tiles(i).Image = Nothing
@@ -190,12 +206,12 @@
         Next
 
         'update the possible moves
-        If Me._selectedPiece IsNot Nothing AndAlso Me._selectedPiece.getPseudoLegalMoves(Me._board) IsNot Nothing Then
-            For Each move As sMove In _selectedPiece.getPseudoLegalMoves(Me._board)
+        If Me._selectedPiece IsNot Nothing AndAlso Me._selectedPiece.calc_pseudo(Me._board) IsNot Nothing Then
+            For Each move As sMove In _selectedPiece.calc_pseudo(Me._board)
                 If _board.isLegalMove(move) Then
 
-                    If Me._showLegalMoves Then
-                        If _board.getTiles(move.dest).getOccupied Then
+                    If Me._showLegal Then
+                        If _board.getTiles(move.dest).is_occupied Then
                             Me._tiles(move.dest).BackgroundImageLayout = ImageLayout.Stretch
                             Me._tiles(move.dest).BackgroundImage = My.Resources.attackedOccupied
                         Else
@@ -212,10 +228,10 @@
 
         'update check indicators
         If Me._board.isInCheck(Alliance.White) Then
-            Me._tiles(Me._board.findKing(Alliance.White).getCoordinate).BackColor = Color.IndianRed
+            Me._tiles(Me._board.findKing(Alliance.White).get_coordinate).BackColor = Color.IndianRed
         End If
         If Me._board.isInCheck(Alliance.Black) Then
-            Me._tiles(Me._board.findKing(Alliance.Black).getCoordinate).BackColor = Color.IndianRed
+            Me._tiles(Me._board.findKing(Alliance.Black).get_coordinate).BackColor = Color.IndianRed
         End If
 
         'update move indicators
@@ -226,28 +242,30 @@
 
         With Me._board
             If .getState <> GameState.ongoing Then
+
                 If .getState = GameState.WhiteMated Then
                     My.Computer.Audio.Play(System.AppDomain.CurrentDomain.BaseDirectory & "\checkmate.wav")
-                    MsgBox("Checkmate, black wins.")
                 ElseIf .getState = GameState.BlackMated Then
                     My.Computer.Audio.Play(System.AppDomain.CurrentDomain.BaseDirectory & "\checkmate.wav")
-                    MsgBox("Checkmate, white wins.")
-                ElseIf .getState = GameState.Draw Or .getState = GameState.Stalemate Then
-                    MsgBox("Draw.")
                 End If
+                game_end_form.Show()
+
+                game_end_form.Location = New Point(CInt(PointToScreen(Me.Location).X + (Me.Width / 2) - (game_end_form.Width * 1.24)), CInt(PointToScreen(Me.Location).Y) + CInt(Me.Height / 2) - CInt(game_end_form.Height / 2))
+
             End If
         End With
+
     End Sub
 
-    Private Sub AddHandlers()
+    Private Sub add_handlers()
         For i = 0 To 63
-            AddHandler Me._tiles(i).MouseDown, AddressOf E_Mouse_Down
-            AddHandler Me._tiles(i).MouseMove, AddressOf E_Mouse_Moved
-            AddHandler Me._tiles(i).MouseUp, AddressOf E_Mouse_Up
+            AddHandler Me._tiles(i).MouseDown, AddressOf e_mousedown
+            AddHandler Me._tiles(i).MouseMove, AddressOf e_mousemove
+            AddHandler Me._tiles(i).MouseUp, AddressOf e_mouseup
         Next
     End Sub
 
-    Private Function getTileArrayLocation(sender As Object) As Integer
+    Private Function find_tile_index(sender As Object) As Integer
         For i = 0 To 63
             If CType(sender, PictureBox) Is Me._tiles(i) Then Return i
         Next
@@ -255,21 +273,21 @@
 
 #Region "Handlers"
 
+    Private Sub e_mousedown(SENDER As Object, E As MouseEventArgs)
+        If E.Button = MouseButtons.Left AndAlso Not (Me._board.isOver) Then
 
-    Private Sub E_Mouse_Down(SENDER As Object, E As MouseEventArgs)
-        If E.Button = MouseButtons.Left Then
             Me.Cursor = Cursors.SizeAll
             Me._ogTile = CType(SENDER, PictureBox)
-            Dim clickedTile As cTile = Me._board.getTiles(Me.getTileArrayLocation(SENDER))
+            Dim clickedTile As cTile = Me._board.getTiles(Me.find_tile_index(SENDER))
             Dim clickedTilePB As PictureBox = CType(SENDER, PictureBox)
-            If clickedTile.getOccupied AndAlso clickedTile.getPiece.getAlliance = Me._board.getWhosTurn Then
-                If Me._selectedPiece Is Nothing AndAlso clickedTile.getOccupied AndAlso clickedTile.getPiece.getAlliance = Me._board.getWhosTurn Or Me._ogTile.Bounds.Contains(PointToClient(MousePosition)) Then
+            If clickedTile.is_occupied AndAlso clickedTile.get_piece.get_alliance = Me._board.getWhoseTurn Then
+                If Me._selectedPiece Is Nothing AndAlso clickedTile.is_occupied AndAlso clickedTile.get_piece.get_alliance = Me._board.getWhoseTurn Or Me._ogTile.Bounds.Contains(PointToClient(MousePosition)) Then
                     'if a piece hasn't already been selected and is a valid piece to move then select the clicked piece.
-                    Me._selectedPiece = clickedTile.getPiece
-                    Me.UpdateGraphics()
+                    Me._selectedPiece = clickedTile.get_piece
+                    Me.update_graphics()
                     With (Me._heldPiece)
                         .Show()
-                        .UpdateImage(getImage(Me._selectedPiece.getAlliance, Me._selectedPiece.getTitle))
+                        .UpdateImage(calc_image(Me._selectedPiece.get_alliance, Me._selectedPiece.get_title))
                         .Location = clickedTilePB.Location
                         .BringToFront()
                     End With
@@ -283,35 +301,40 @@
                     If Me._tiles(i).Bounds.Contains(PointToClient(MousePosition)) Then destTile = Me._tiles(i)
                 Next    'finds the destination button
 
-                Dim m As New sMove(Me._selectedPiece.getCoordinate, Me._board.getTiles(Me.getTileArrayLocation(destTile)).getCoordinate)
+                If destTile Is Nothing Then Throw New Exception
+
+                Dim m As New sMove(Me._selectedPiece.get_coordinate, Me._board.getTiles(Me.find_tile_index(destTile)).get_coordinate)
                 If Me._board.isLegalMove(m) Then
 
-                    Me.MakeMoveGUI(m)
+                    Me.move_made(m)
 
                 Else
                     'if the move is not valid
                     Me._selectedPiece = Nothing
                     Me._ogTile = Nothing
-                    Me.UpdateGraphics()
+                    Me.update_graphics()
                 End If
             Else
                 'if the move is not valid
                 Me._selectedPiece = Nothing
                 Me._ogTile = Nothing
-                Me.UpdateGraphics()
+                Me.update_graphics()
             End If
+
+
         ElseIf E.Button = MouseButtons.Right Then
             If CType(SENDER, PictureBox).BackColor = Color.Green Or CType(SENDER, PictureBox).BackColor = Color.Red Or CType(SENDER, PictureBox).BackColor = Color.Blue Then
                 If Me._lastMove <> Nothing Then
-                    If Me._lastMove.ogCoord = getTileArrayLocation(SENDER) Then
+                    If Me._lastMove.ogCoord = find_tile_index(SENDER) Then
                         CType(SENDER, PictureBox).BackColor = Me._ogCol
-                    ElseIf Me._lastMove.dest = getTileArrayLocation(SENDER) Then
+                    ElseIf Me._lastMove.dest = find_tile_index(SENDER) Then
                         CType(SENDER, PictureBox).BackColor = Me._destCol
                     Else
-                        If Me._board.getTiles(Me.getTileArrayLocation(SENDER)).getIsLightSquare Then CType(SENDER, PictureBox).BackColor = Me._lightSquare Else CType(SENDER, PictureBox).BackColor = Me._darkSquare
+                        If Me._board.getTiles(Me.find_tile_index(SENDER)).get_is_lightsquare Then CType(SENDER, PictureBox).BackColor = Me._lightSquare Else CType(SENDER, PictureBox).BackColor = Me._darkSquare
                     End If
+                Else
+                    If Me._board.getTiles(Me.find_tile_index(SENDER)).get_is_lightsquare Then CType(SENDER, PictureBox).BackColor = Me._lightSquare Else CType(SENDER, PictureBox).BackColor = Me._darkSquare
                 End If
-
             Else
                 If My.Computer.Keyboard.AltKeyDown Then
                     CType(SENDER, PictureBox).BackColor = Color.Green
@@ -324,7 +347,7 @@
         End If
     End Sub
 
-    Private Sub E_Mouse_Moved(SENDER As Object, E As MouseEventArgs)
+    Private Sub e_mousemove(SENDER As Object, E As MouseEventArgs)
         If Me._selectedPiece IsNot Nothing Then
             Dim mp As Point = New Point(CInt(PointToClient(MousePosition).X - Me._heldPiece.Width / 2), CInt(PointToClient(MousePosition).Y - Me._heldPiece.Height / 2))
             If E.Button = MouseButtons.Left Then
@@ -342,7 +365,7 @@
         End If
     End Sub
 
-    Private Sub E_Mouse_Up(SENDER As Object, E As MouseEventArgs)
+    Private Sub e_mouseup(SENDER As Object, E As MouseEventArgs)
         If E.Button = MouseButtons.Left Then
 
             Me._tileBorder.Hide()
@@ -352,54 +375,58 @@
             If _selectedPiece IsNot Nothing Then
 
                 If Me._ogTile.Bounds.Contains(PointToClient(MousePosition)) Then
-                    Me._ogTile.Image = New Bitmap(Me.getImage(Me._selectedPiece.getAlliance, Me._selectedPiece.getTitle), New Size(70, 70))
+                    Me._ogTile.Image = New Bitmap(Me.calc_image(Me._selectedPiece.get_alliance, Me._selectedPiece.get_title), New Size(70, 70))
                 Else
                     Dim destTile As PictureBox
                     For i = 0 To UBound(Me._tiles)
                         If Me._tiles(i).Bounds.Contains(PointToClient(MousePosition)) Then destTile = Me._tiles(i)
                     Next    'finds the destination button
 
-                    Dim m As New sMove(Me._selectedPiece.getCoordinate, Me._board.getTiles(Me.getTileArrayLocation(destTile)).getCoordinate)
+                    Dim m As New sMove(Me._selectedPiece.get_coordinate, Me._board.getTiles(Me.find_tile_index(destTile)).get_coordinate)
 
                     If Me._board.isLegalMove(m) Then
-                        Me.MakeMoveGUI(m)
+                        Me.move_made(m)
                     Else
                         'if the move is not valid
                         Me._selectedPiece = Nothing
                         Me._ogTile = Nothing
-                        Me.UpdateGraphics()
+                        Me.update_graphics()
                     End If
                 End If
             End If
         End If
     End Sub
 
-    Private Sub MakeMoveGUI(m As sMove)
-        Dim wasCapture As Boolean = Me._board.getTiles(m.dest).getOccupied
+    Private Sub move_made(m As sMove)
+        Dim wasCapture As Boolean = Me._board.getTiles(m.dest).is_occupied
 
-        Dim whosTurn As Alliance = _board.getWhosTurn
+        Dim whosTurn As Alliance = _board.getWhoseTurn
 
-        Me._board.getMoveList.AddLast(m.ToString(Me._board))
-        Me._gameGUI.getMoveList.AddMove(m.ToString(Me._board))
+        Me._board.getMoveListString.AddLast(m.ToString(Me._board))
+        Me._gameGUI.getMoveList.AddMove(m.ToString(Me._board), _board.getWhoseTurn)
         _board.MakeMove(m)
 
         Me._game.boardList.AddLast(Me._board.getDeepClone(Of cBoard)(Me._board))   'update the board list
+        Me._gameGUI._moveListGUI.UpdateOpeningName()
 
-        If whosTurn <> _board.getWhosTurn Then  'this verifies that the move was actually played and legal
+        Me._ogTile = Nothing
+        Me._selectedPiece = Nothing
+        Me._lastMove = m    'updates the last move made in the game.
+
+        Me.update_graphics()
+
+        If whosTurn <> _board.getWhoseTurn Then  'this verifies that the move was actually played and legal
             Dim ext As String = Nothing
             If wasCapture Then ext = "\capture.wav" Else ext = "\pieceMoved.wav"
             My.Computer.Audio.Play(System.AppDomain.CurrentDomain.BaseDirectory & ext)
         End If
-        Me._ogTile = Nothing
-        Me._selectedPiece = Nothing
-        Me._lastMove = m    'updates the last move made in the game.
-        Me.UpdateGraphics()
-    End Sub
 
+    End Sub
 
 #End Region
 
-    Public Sub FlipBoard()
+    Public Sub flip_board()
+        Me._gameGUI.getBoardWrapper.FlipRankMarkers()
 
         Dim xGap As Integer
         xGap = (Me._tiles(0).Location.X + Me._tiles(0).Width) - Me._tiles(1).Location.X
@@ -423,10 +450,88 @@
                 End If
             End With
         Next
-        Me.UpdateGraphics()
+        Me.update_graphics()
         Me.Update()
         Me._whiteBottom = Not Me._whiteBottom
         Debug.WriteLine(CStr("Board flipped, whiteBottom: " & Me._whiteBottom.ToString))
+    End Sub
+
+    ''' <summary>
+    ''' Will temporarily display the referenced board on the GUI until any event causes the current position to be loaded again (i.e. a move being played,
+    ''' mouse down event etc).
+    ''' </summary>
+    ''' <param name="BOARD">Reference to the board that you would like to display.</param>
+    ''' <remarks></remarks>
+    Private Sub update_ghost_graphics(BOARD As cBoard)
+        Me._lastMove = BOARD.getMoveList.Last.Value
+        'update the back colour and resets the background image
+        For i = 0 To 63
+            If _selectedPiece IsNot Nothing AndAlso _selectedPiece.get_coordinate = i Then
+                Me._tiles(i).BackColor = Color.Orange
+            Else
+                If BOARD.getTiles(i).get_is_lightsquare Then
+                    Me._tiles(i).BackColor = _lightSquare
+                Else
+                    Me._tiles(i).BackColor = _darkSquare
+                End If
+            End If
+            Me._tiles(i).BackgroundImage = Nothing
+        Next
+        'update the image on each tile
+        For i = 0 To 63
+            If BOARD.getTiles(i).is_occupied Then
+                Dim x As New Bitmap(calc_image(BOARD.getTiles(i).get_piece.get_alliance, BOARD.getTiles(i).get_piece.get_title), New Size(Me._tiles(0).Height - 5, Me._tiles(0).Height - 5))
+                Me._tiles(i).Image = x
+            Else
+                Me._tiles(i).Image = Nothing
+            End If
+        Next
+
+        'update the possible moves
+        If Me._selectedPiece IsNot Nothing AndAlso Me._selectedPiece.calc_pseudo(BOARD) IsNot Nothing Then
+            For Each move As sMove In _selectedPiece.calc_pseudo(BOARD)
+                If BOARD.isLegalMove(move) Then
+
+                    If Me._showLegal Then
+                        If BOARD.getTiles(move.dest).is_occupied Then
+                            Me._tiles(move.dest).BackgroundImageLayout = ImageLayout.Stretch
+                            Me._tiles(move.dest).BackgroundImage = My.Resources.attackedOccupied
+                        Else
+                            Me._tiles(move.dest).BackgroundImageLayout = ImageLayout.Center
+                            Me._tiles(move.dest).BackgroundImage = New Bitmap(My.Resources.attacked, New Size(CInt(Me._tiles(move.dest).Size.Height / 3), CInt(Me._tiles(move.dest).Size.Width / 3)))
+                        End If
+                    Else
+                        Me._tiles(move.dest).BackgroundImage = Nothing
+                    End If
+
+                End If
+            Next
+        End If
+
+        'update check indicators
+        If BOARD.isInCheck(Alliance.White) Then
+            Me._tiles(BOARD.findKing(Alliance.White).get_coordinate).BackColor = Color.IndianRed
+        End If
+        If BOARD.isInCheck(Alliance.Black) Then
+            Me._tiles(BOARD.findKing(Alliance.Black).get_coordinate).BackColor = Color.IndianRed
+        End If
+
+        'update move indicators
+        If Me._lastMove <> Nothing Then
+            Me._tiles(_lastMove.ogCoord).BackColor = Me._ogCol
+            Me._tiles(_lastMove.dest).BackColor = Me._destCol
+        End If
+
+        Me._showingGhostBoard = True
+
+    End Sub
+    Public Sub show_ghost_position(moveIndex As Integer)
+        Dim toShow As cBoard = Me._game.boardList(moveIndex)
+        If toShow Is Me._game.boardList.Last.Value Then
+            update_graphics()
+        Else
+            update_ghost_graphics(toShow)
+        End If
     End Sub
 
 End Class

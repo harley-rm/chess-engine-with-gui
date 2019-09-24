@@ -1,28 +1,28 @@
 ﻿Public Class cGhostBoard
     Private _move As sMove
-    Private _transition As cBoard
-    Private _isLegal As Boolean
+    Private _board As cBoard
+    Private _legal As Boolean
 
-    Public Function isLegal() As Boolean
-        Return Me._isLegal
+    Public Function is_legal() As Boolean
+        Return Me._legal
     End Function
-    Public Function getBoard() As cBoard
-        Return Me._transition
+    Public Function get_board() As cBoard
+        Return Me._board
     End Function
 
     Public Sub New(OG_BOARD As cBoard, MOVE As sMove)
         Me._move = MOVE
-        Me._transition = OG_BOARD.getDeepClone(Of cBoard)(OG_BOARD)
-        Me._transition.MakeMove(MOVE, True)
-        Me._isLegal = calculateIsBoardLegal()
+        Me._board = OG_BOARD.getDeepClone(Of cBoard)(OG_BOARD)
+        Me._board.MakeMove(MOVE, True)
+        Me._legal = calc_legality()
     End Sub
 
-    Public Function calculateIsBoardLegal() As Boolean
-        With (Me._transition)
-            If .isInCheck(Alliance.White) AndAlso .getWhosTurn = Alliance.Black Then
+    Public Function calc_legality() As Boolean
+        With (Me._board)
+            If .isInCheck(Alliance.White) AndAlso .getWhoseTurn = Alliance.Black Then
                 Return False
             End If
-            If .isInCheck(Alliance.Black) AndAlso .getWhosTurn = Alliance.White Then
+            If .isInCheck(Alliance.Black) AndAlso .getWhoseTurn = Alliance.White Then
                 Return False
             End If
         End With

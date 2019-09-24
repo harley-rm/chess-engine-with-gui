@@ -2,13 +2,14 @@
 Public Class cRook
     Inherits cPiece
 
-    Private _hasMoved As Boolean = False
+    Private _moved As Boolean = False
 
-    Public Function getHasMoved() As Boolean
-        Return Me._hasMoved
+    Public Function get_moved() As Boolean
+        Return Me._moved
     End Function
-    Public Sub setHasMoved(VALUE As Boolean)
-        Me._hasMoved = VALUE
+    Public Sub set_moved(VALUE As Boolean)
+        Me._moved = VALUE
+        MsgBox("MOVED")
     End Sub
 
     Public Sub New(ALLIANCE As Alliance, COORDINATE As Byte)
@@ -17,7 +18,7 @@ Public Class cRook
         Me._value = 500
     End Sub
 
-    Public Overrides Function getChar() As Char
+    Public Overrides Function get_char() As Char
         If Me._alliance = Alliance.White Then
             Return CChar("R")
         Else
@@ -25,15 +26,15 @@ Public Class cRook
         End If
     End Function
 
-    Public Overrides Function getPseudoLegalMoves(BOARD As cBoard) As sMove()
+    Public Overrides Function calc_pseudo(BOARD As cBoard) As sMove()
         Dim possibleMoveOffsets As SByte() = {-8, -1, 1, 8}
         Dim legalMoves() As sMove = Nothing
         Dim counter As Integer = 0
         For i = 0 To UBound(possibleMoveOffsets)
             Dim targetCoord As Integer = Me._coordinate + possibleMoveOffsets(i)
-            While isValidTile(targetCoord, CByte(targetCoord - possibleMoveOffsets(i)), possibleMoveOffsets(i))
-                If BOARD.getTile(CByte(targetCoord)).getOccupied Then
-                    If BOARD.getTile(CByte(targetCoord)).getPiece.getAlliance <> Me._alliance Then
+            While is_valid_tile(targetCoord, CByte(targetCoord - possibleMoveOffsets(i)), possibleMoveOffsets(i))
+                If BOARD.getTile(CByte(targetCoord)).is_occupied Then
+                    If BOARD.getTile(CByte(targetCoord)).get_piece.get_alliance <> Me._alliance Then
                         ReDim Preserve legalMoves(counter)
                         legalMoves(counter) = New sMove(Me._coordinate, CByte(targetCoord))
                         counter += 1
@@ -50,7 +51,7 @@ Public Class cRook
         Return legalMoves
     End Function
 
-    Public Function isValidTile(TARGET_COORDIANTE As Integer, OG_COORDINATE As Byte, OFFSET As Integer) As Boolean
+    Public Function is_valid_tile(TARGET_COORDIANTE As Integer, OG_COORDINATE As Byte, OFFSET As Integer) As Boolean
         Dim ogCol As Integer = (OG_COORDINATE Mod 8 + 1)
         Select Case ogCol
             Case 1

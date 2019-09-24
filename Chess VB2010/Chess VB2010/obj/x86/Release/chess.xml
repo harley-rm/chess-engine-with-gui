@@ -1,0 +1,340 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+chess
+</name>
+</assembly>
+<members>
+<member name="T:chess.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.abB">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.abB1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.abK">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.abK1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.abN">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.abN1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.abP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.abP1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.abQ">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.abQ1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.abR">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.abR1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.arrow_left">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.arrow_right">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.attacked">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.attacked1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.attackedOccupied">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.attackedOccupied1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.awB">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.awB1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.awK">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.awK1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.awN">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.awN1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.awP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.awP1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.awQ">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.awQ1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.awR">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.awR1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.black_engine_avi">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.close_window">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.default_dop">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.flip_board">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.maximize_window">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.minimize_window">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.new_game">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.pause">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.play">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.previous">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.show_engine_move">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.skip">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.undo_move">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:chess.My.Resources.Resources.white_engine_avi">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="M:chess.cBoard.update_pieces(chess.Alliance)">
+ <summary>
+ Will return an updated cPiece array of all of the pieces currently on the instance of board from which it is called.
+ </summary>
+ <param name="ALLIANCE">Alliance of the set of pieces intended to be updated.</param>
+ <returns>Hey</returns>
+</member>
+<member name="M:chess.cBoard.get_deep_clone``1(``0@)">
+ <summary>
+ Creates and returns a bit-wise clone of the input board, after eliminating references.
+ </summary>
+ <typeparam name="cBoard"></typeparam>
+ <param name="orig"></param>
+ <returns></returns>
+</member>
+<member name="M:chess.cBoard.initialize_board">
+ <summary>
+ Updates the board to represent the standard chess starting position.
+ </summary>
+</member>
+<member name="M:chess.cBoard.calc_pseudo_moves(chess.Alliance)">
+ <summary>
+ Returns the pseudo-legal moves of pieces of the specified alliance.
+ </summary>
+ <param name="ALLIANCE"></param>
+</member>
+<member name="M:chess.cBoard.calc_legal">
+ <summary>
+ Returns moves which are allowed by each pieces normal moves, taking pins into account.
+ </summary>
+</member>
+<member name="M:chess.cBoard.make_move(chess.sMove,System.Boolean)">
+ <summary>
+ Updates the current instance of cBoard to reflect the move attempted, if the move is not legal, it will not be made.
+ </summary>
+ <param name="MOVE"></param>
+ <param name="FROM_TRANSITION"></param>
+</member>
+<member name="M:chess.cBoard.update_board_members(System.Boolean,chess.cPiece,System.Boolean)">
+ <summary>
+ This updates all necessary members of board after a move is made.
+ </summary>
+ <param name="WAS_CAPTURE"></param>
+ <param name="MOVED_PIECE"></param>
+ <param name="FROM_TRANSITION"></param>
+</member>
+<member name="M:chess.cClock.#ctor(chess.cGame,System.Int32,System.Int32)">
+ <summary>
+ Instantiates a new clock with time given in seconds and optionally increment in seconds.
+ </summary>
+ <param name="TIME"></param>
+ <param name="INCREMENT"></param>
+</member>
+<member name="M:chess.cClock.toggle">
+ <summary>
+ Toggles the state of the clock, if the clock is set to counting then it is paused, and vice-versa.
+ </summary>
+</member>
+<member name="M:chess.Minimax.calc_best_move(System.Int32,chess.cBoard)">
+ <summary>
+ Returns the best move as determined by looking the given number of half-plys ahead from a given position.
+ </summary>
+ <param name="BOARD">Inputs the position to begin evaluation from.</param>
+ <param name="DEPTH">Specifies how many half-plies forward the engine will search to generate the evaluation score. Higher depths will score as position more accurately at the expense of time.</param>
+ <returns></returns>
+</member>
+<member name="T:chess.cAccount">
+ <summary>
+ Serves as an object to store accounts in the application.
+ Also contains required shared methods to setup an account storage system to be used with the application.
+ </summary>
+</member>
+<member name="M:chess.cBoardGUI.update_ghost_graphics(chess.cBoard)">
+ <summary>
+ Will temporarily display the referenced board on the GUI until any event causes the current position to be loaded again (i.e. a move being played,
+ mouse down event etc).
+ </summary>
+ <param name="BOARD">Reference to the board that you would like to display.</param>
+ <remarks></remarks>
+</member>
+<member name="M:chess.sSettings.gen_default_file">
+ <summary>
+ Generates a template settings.ini file for the user in the expected file path.
+ </summary>
+ <remarks>Can be used by choice or if a file is not found.</remarks>
+</member>
+<member name="M:chess.sSettings.enact(chess.InterfaceForm,chess.cGameGUI)">
+ <summary>
+ Carries out the neccessary changes on the targets based on the instances current members.
+ </summary>
+ <param name="FORM">The target form to make the changes to.</param>
+ <param name="GAME_GUI">The target game_gui to make the changes to.</param>
+ <remarks></remarks>
+</member>
+</members>
+</doc>

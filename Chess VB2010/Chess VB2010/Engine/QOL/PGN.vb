@@ -1,3 +1,4 @@
-﻿Public Class PGN
+﻿<Serializable()>
+Public Class PGN
 
 End Class

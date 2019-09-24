@@ -20,65 +20,65 @@ Public Structure sMove
     Public Overloads Function ToString(BOARD As cBoard) As String
         'THIS FUNCTION WILL ONLY WORK IF CALLED BEFORE THE MOVE IS MADE ON THE BOARD, AKA THE PARAMETER IS THE BOARD BEFORE THE MOVE
 
-        Dim movingPiece As cPiece = BOARD.getTiles(Me.ogCoord).getPiece
-        Dim isCapture As Boolean = BOARD.getTile(Me.dest).getOccupied
-        Dim isAmbiguous As Boolean = Me.isMoveAmbiguous(BOARD, movingPiece)
+        Dim movingPiece As cPiece = BOARD.getTiles(Me.ogCoord).get_piece
+        Dim isCapture As Boolean = BOARD.getTile(Me.dest).is_occupied
+        Dim isAmbiguous As Boolean = Me.is_ambigious(BOARD, movingPiece)
         Dim castlingTiles As Byte() = {58, 62, 2, 6}
         'a move is deemed to be ambiguous if another piece of the same alliance and piece type can also move the the destination square.
         If isAmbiguous Then
             Dim cap As String
             If isCapture Then cap = "x" Else cap = Nothing
-            ToString = getChar(movingPiece, isCapture) & BOARD.getTile(movingPiece.getCoordinate).getFile & cap & BOARD.getTile(Me.dest).getFile & BOARD.getTile(Me.dest).getRank
+            ToString = calc_char(movingPiece, isCapture) & BOARD.getTile(movingPiece.get_coordinate).get_file & cap & BOARD.getTile(Me.dest).get_file & BOARD.getTile(Me.dest).get_rank
         Else
-            If movingPiece.getTitle = Chessman.Pawn AndAlso BOARD.getTile(Me.dest).getCoordinate = BOARD.getEnPassentCoord Then  'en passent capture
-                ToString = LCase(BOARD.getTile(Me.ogCoord).getFile & "x" & BOARD.getTile(Me.dest).getFile & BOARD.getTile(Me.dest).getRank)
-            ElseIf movingPiece.getTitle = Chessman.Pawn AndAlso ((BOARD.getTile(Me.dest).getCoordinate \ 8 + 1 = 1) AndAlso movingPiece.getAlliance = Alliance.White) Then  'black promotion
-                ToString = LCase(BOARD.getTile(Me.dest).getFile & BOARD.getTile(Me.dest).getRank) & "=Q"
-            ElseIf movingPiece.getTitle = Chessman.Pawn AndAlso (BOARD.getTile(Me.dest).getCoordinate \ 8 + 1 = 8) AndAlso movingPiece.getAlliance = Alliance.Black Then    'white promotion
-                ToString = LCase(BOARD.getTile(Me.dest).getFile & BOARD.getTile(Me.dest).getRank) & "=Q"
-            ElseIf movingPiece.getTitle = Chessman.King AndAlso Not CType(movingPiece, cKing).getHasMoved AndAlso castlingTiles.Contains(Me.dest) Then        'castling
+            If movingPiece.get_title = Chessman.Pawn AndAlso BOARD.getTile(Me.dest).get_coordinate = BOARD.getEnPassent Then  'en passent capture
+                ToString = LCase(BOARD.getTile(Me.ogCoord).get_file & "x" & BOARD.getTile(Me.dest).get_file & BOARD.getTile(Me.dest).get_rank)
+            ElseIf movingPiece.get_title = Chessman.Pawn AndAlso ((BOARD.getTile(Me.dest).get_coordinate \ 8 + 1 = 1) AndAlso movingPiece.get_alliance = Alliance.White) Then  'black promotion
+                ToString = LCase(BOARD.getTile(Me.dest).get_file & BOARD.getTile(Me.dest).get_rank) & "=Q"
+            ElseIf movingPiece.get_title = Chessman.Pawn AndAlso (BOARD.getTile(Me.dest).get_coordinate \ 8 + 1 = 8) AndAlso movingPiece.get_alliance = Alliance.Black Then    'white promotion
+                ToString = LCase(BOARD.getTile(Me.dest).get_file & BOARD.getTile(Me.dest).get_rank) & "=Q"
+            ElseIf movingPiece.get_title = Chessman.King AndAlso Not CType(movingPiece, cKing).get_moved AndAlso castlingTiles.Contains(Me.dest) Then        'castling
                 If Me.dest = 2 Or Me.dest = 58 Then ToString = "O-O-O" Else ToString = "O-O"
             Else    'normal move66
                 Dim cap As String
                 If isCapture Then cap = CChar("x") Else cap = ""
-                ToString = getChar(movingPiece, isCapture) & cap & BOARD.getTile(Me.dest).getFile & BOARD.getTile(Me.dest).getRank
+                ToString = calc_char(movingPiece, isCapture) & cap & BOARD.getTile(Me.dest).get_file & BOARD.getTile(Me.dest).get_rank
             End If
         End If
 
-        Dim t As New cGhostBoard(BOARD, Me)
-        Dim s As GameState = t.getBoard.getState
-        If t.getBoard.getLegalMoves Is Nothing Then MsgBox("")
-        If s = GameState.WhiteMated Or s = GameState.BlackMated Then Return ToString & "#"  'if there was a mate then update and return the string
-        If t.getBoard.isInCheck(Alliance.White) Or t.getBoard.isInCheck(Alliance.Black) Then Return ToString & "+"  'if the move resulted in check, then update and return the string.
+        Dim t As cBoard = BOARD.getDeepClone(Of cBoard)(BOARD)
+        t.MakeMove(Me)
+        Dim s As GameState = t.calcBoardState()
+        If s = GameState.WhiteMated Or s = GameState.BlackMated Then Return ToString & "#" 'if there was a mate then update and return the string
+        If t.isInCheck(Alliance.White) Or t.isInCheck(Alliance.Black) Then Return ToString & "+" 'if the move resulted in check, then update and return the string.
 
         Return ToString
 
     End Function
 
-    Private Function getChar(PIECE As cPiece, IS_CAPTURE As Boolean) As String
-            Select Case PIECE.getTitle
-                Case Chessman.Pawn
-                    If IS_CAPTURE Then Return LCase(Chr(64 + (PIECE.getCoordinate Mod 8 + 1)))
-                Case Chessman.Knight
-                    Return CChar("N")
-                Case Chessman.Bishop
-                    Return CChar("B")
-                Case Chessman.Rook
-                    Return CChar("R")
-                Case Chessman.Queen
-                    Return CChar("Q")
-                Case Chessman.King
-                    Return CChar("K")
-            End Select
-            Return ""
-        End Function
+    Private Function calc_char(PIECE As cPiece, IS_CAPTURE As Boolean) As String
+        Select Case PIECE.get_title
+            Case Chessman.Pawn
+                If IS_CAPTURE Then Return LCase(Chr(64 + (PIECE.get_coordinate Mod 8 + 1)))
+            Case Chessman.Knight
+                Return CChar("N")
+            Case Chessman.Bishop
+                Return CChar("B")
+            Case Chessman.Rook
+                Return CChar("R")
+            Case Chessman.Queen
+                Return CChar("Q")
+            Case Chessman.King
+                Return CChar("K")
+        End Select
+        Return ""
+    End Function
 
-    Private Function isMoveAmbiguous(BOARD As cBoard, MOVING_PIECE As cPiece) As Boolean
-        Dim alliance As Alliance = MOVING_PIECE.getAlliance
+    Private Function is_ambigious(BOARD As cBoard, MOVING_PIECE As cPiece) As Boolean
+        Dim alliance As Alliance = MOVING_PIECE.get_alliance
         For Each move As sMove In BOARD.getLegalMoves
             If move <> Me Then
-                If BOARD.getTile(move.ogCoord).getPiece.getAlliance = alliance Then
-                    If move.dest = Me.dest AndAlso BOARD.getTile(move.ogCoord).getPiece.getTitle = BOARD.getTile(Me.ogCoord).getPiece.getTitle Then Return True
+                If BOARD.getTile(move.ogCoord).get_piece.get_alliance = alliance Then
+                    If move.dest = Me.dest AndAlso BOARD.getTile(move.ogCoord).get_piece.get_title = BOARD.getTile(Me.ogCoord).get_piece.get_title Then Return True
                 End If
             End If
         Next
@@ -86,48 +86,48 @@ Public Structure sMove
     End Function
 
 #Region "Moves"
-    Public Shared Sub Regular(MOVE As sMove, BOARD As cBoard)
-        Dim movingPiece As cPiece = BOARD.getTile(MOVE.ogCoord).getPiece        'error @ 1. e4, d5 2. exd5, c6 3. dxc6, Bd7 4. cxb7, Be6 5. bxa8=Q, Qd7 6. Qaf3
+    Public Shared Sub regular(MOVE As sMove, BOARD As cBoard)
+        Dim movingPiece As cPiece = BOARD.getTile(MOVE.ogCoord).get_piece        'error @ 1. e4, d5 2. exd5, c6 3. dxc6, Bd7 4. cxb7, Be6 5. bxa8=Q, Qd7 6. Qaf3
         Dim targetTile As cTile = BOARD.getTile(MOVE.dest)
-        movingPiece.setCoordinate(targetTile.getCoordinate)      'update the pieces coordinate
-        targetTile.setPiece(movingPiece)                         'update the tiles piece reference
-        BOARD.getTiles(MOVE.ogCoord).setPiece(Nothing)           'update the og tiles piece reference
+        movingPiece.set_coordinate(targetTile.get_coordinate)      'update the pieces coordinate
+        targetTile.set_piece(movingPiece)                         'update the tiles piece reference
+        BOARD.getTiles(MOVE.ogCoord).set_piece(Nothing)           'update the og tiles piece reference
     End Sub
 
-        Public Shared Sub EnPassentCapture(MOVE As sMove, BOARD As cBoard)
-            Dim movingPiece As cPiece = BOARD.getTile(MOVE.ogCoord).getPiece
-            Dim targetTile As cTile = BOARD.getTile(MOVE.dest)
-            movingPiece.setCoordinate(MOVE.dest)
-            targetTile.setPiece(movingPiece)
-            If BOARD.getWhosTurn = Alliance.White Then
-                BOARD.getTile(CByte(MOVE.dest + 8)).setPiece(Nothing)
-            Else
-                BOARD.getTile(CByte(MOVE.dest - 8)).setPiece(Nothing)
-            End If
-            BOARD.getTile(MOVE.ogCoord).setPiece(Nothing)
-        End Sub
-
-        Public Shared Sub Castle(MOVE As sMove, BOARD As cBoard)
-            sMove.Regular(MOVE, BOARD)
-            Dim rookMove As sMove
-            Select Case MOVE.dest
-                Case 58
-                    rookMove = New sMove(56, 59)
-                Case 62
-                    rookMove = New sMove(63, 61)
-                Case 2
-                    rookMove = New sMove(0, 3)
-                Case 6
-                    rookMove = New sMove(7, 5)
-            End Select
-            sMove.Regular(rookMove, BOARD)
-        End Sub
-
-    Public Shared Sub Promotion(MOVE As sMove, BOARD As cBoard)
-        Dim movingPiece As cPiece = BOARD.getTile(MOVE.ogCoord).getPiece
+    Public Shared Sub enpassent(MOVE As sMove, BOARD As cBoard)
+        Dim movingPiece As cPiece = BOARD.getTile(MOVE.ogCoord).get_piece
         Dim targetTile As cTile = BOARD.getTile(MOVE.dest)
-        targetTile.setPiece(New cQueen(movingPiece.getAlliance, MOVE.dest))     'puts the new queen on the board
-        BOARD.getTile(MOVE.ogCoord).setPiece(Nothing)   'removes the promoting piece from the board
+        movingPiece.set_coordinate(MOVE.dest)
+        targetTile.set_piece(movingPiece)
+        If BOARD.getWhoseTurn = Alliance.White Then
+            BOARD.getTile(CByte(MOVE.dest + 8)).set_piece(Nothing)
+        Else
+            BOARD.getTile(CByte(MOVE.dest - 8)).set_piece(Nothing)
+        End If
+        BOARD.getTile(MOVE.ogCoord).set_piece(Nothing)
+    End Sub
+
+    Public Shared Sub castle(MOVE As sMove, BOARD As cBoard)
+        sMove.regular(MOVE, BOARD)
+        Dim rookMove As sMove
+        Select Case MOVE.dest
+            Case 58
+                rookMove = New sMove(56, 59)
+            Case 62
+                rookMove = New sMove(63, 61)
+            Case 2
+                rookMove = New sMove(0, 3)
+            Case 6
+                rookMove = New sMove(7, 5)
+        End Select
+        sMove.regular(rookMove, BOARD)
+    End Sub
+
+    Public Shared Sub promotion(MOVE As sMove, BOARD As cBoard)
+        Dim movingPiece As cPiece = BOARD.getTile(MOVE.ogCoord).get_piece
+        Dim targetTile As cTile = BOARD.getTile(MOVE.dest)
+        targetTile.set_piece(New cQueen(movingPiece.get_alliance, MOVE.dest))     'puts the new queen on the board
+        BOARD.getTile(MOVE.ogCoord).set_piece(Nothing)   'removes the promoting piece from the board
         BOARD.updatePieces(Alliance.White)  'updates the piece list of the board for both players.
         BOARD.updatePieces(Alliance.Black)
     End Sub

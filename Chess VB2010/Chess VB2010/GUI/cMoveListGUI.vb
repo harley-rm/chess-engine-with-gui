@@ -19,10 +19,9 @@
             .Location = New Point(0, Me._moveList.Height + 10)
             .ReadOnly = True
             .TextAlign = HorizontalAlignment.Center
-            .Text = "000: Starting Position"
+            .Text = "Z00: Starting Position"
             .BringToFront()
         End With
-
     End Sub
 
     Public Sub ResizeAll(HEIGHT As Integer)
@@ -36,7 +35,7 @@
         Dim halfPlys As Integer = 0
         Dim no As Integer = 1
         Dim whitesMove As Boolean = True
-        For Each move As String In Me._game.getBoard.getMoveList
+        For Each move As String In Me._game.get_board.getMoveListString
             If whitesMove Then
                 moveList &= no & "." & move
                 whitesMove = Not (whitesMove)
@@ -101,7 +100,7 @@
     Public Sub ClearAndUpdate()
         Me._moveList.Rows.Clear()
         Dim isWhite As Alliance = Alliance.White
-        For Each move As String In Me._game.getBoard.getMoveList
+        For Each move As String In Me._game.get_board.getMoveListString
             Me.AddMove(move, isWhite)
             isWhite = Not isWhite
         Next
@@ -110,17 +109,17 @@
 
     Public Sub AddMove(MOVE As sMove)
         With Me._moveList
-            If Me._game.getBoard.getWhosTurn = Alliance.White Then
+            If Me._game.get_board.getWhoseTurn = Alliance.White Then
                 .Rows.Add()
             End If
             Dim rowIndex As Integer = .Rows.GetLastRow(DataGridViewElementStates.Displayed)
             Me._moveList.FirstDisplayedScrollingRowIndex = rowIndex
-            If Me._game.getBoard.getWhosTurn = Alliance.White Then
+            If Me._game.get_board.getWhoseTurn = Alliance.White Then
                 .Item(0, rowIndex).Value = CStr(rowIndex + 1) & "."
             End If
             Dim columnIndex As Integer
-            If Me._game.getBoard.getWhosTurn = Alliance.White Then columnIndex = 1 Else columnIndex = 2
-            .Item(columnIndex, rowIndex).Value = MOVE.ToString(Me._game.getBoard)
+            If Me._game.get_board.getWhoseTurn = Alliance.White Then columnIndex = 1 Else columnIndex = 2
+            .Item(columnIndex, rowIndex).Value = MOVE.ToString(Me._game.get_board)
         End With
 
         UpdateOpeningName()
@@ -128,16 +127,16 @@
 
     Public Sub AddMove(TEXT As String)
         With Me._moveList
-            If Me._game.getBoard.getWhosTurn = Alliance.White Then
+            If Me._game.get_board.getWhoseTurn = Alliance.White Then
                 .Rows.Add()
             End If
             Dim rowIndex As Integer = .Rows.GetLastRow(DataGridViewElementStates.Displayed)
             Me._moveList.FirstDisplayedScrollingRowIndex = rowIndex
-            If Me._game.getBoard.getWhosTurn = Alliance.White Then
+            If Me._game.get_board.getWhoseTurn = Alliance.White Then
                 .Item(0, rowIndex).Value = CStr(rowIndex + 1) & "."
             End If
             Dim columnIndex As Integer
-            If Me._game.getBoard.getWhosTurn = Alliance.White Then columnIndex = 1 Else columnIndex = 2
+            If Me._game.get_board.getWhoseTurn = Alliance.White Then columnIndex = 1 Else columnIndex = 2
             .Item(columnIndex, rowIndex).Value = TEXT
         End With
         UpdateOpeningName()

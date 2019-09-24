@@ -118,59 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="abB" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\abB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="abB1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\abB1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="abK" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\abK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="abK1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\abK1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="abN" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\abN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="abN1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\abN1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="abP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\abP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="abP1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\abP1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="abQ" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\abQ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="abQ1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\abQ1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="abR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\abR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="abR1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\abR1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="arrow-left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\arrow-left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="arrow-right" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\arrow-right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="attacked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\attacked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="attacked1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\attacked1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="attackedOccupied" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\attackedOccupied.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="attackedOccupied1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\attackedOccupied1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="maximize-window" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\maximize-window.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="awB" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\awB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,55 +127,127 @@
   <data name="awB1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\awB1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="awK" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\awK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="minimize-window" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\minimize-window.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="awK1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\awK1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="awN" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\awN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="awN1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\awN1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="awP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\awP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="awP1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\awP1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="awQ" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\awQ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="awQ1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\awQ1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="awR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\awR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="awR1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\awR1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="arrow-right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow-right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="close-window" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\close-window.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="flip-board" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flip-board.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="abQ1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\abQ1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="maximize-window" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\maximize-window.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="abR1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\abR1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="minimize-window" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\minimize-window.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="awP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\awP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="new-game" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\new-game.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="abP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\abP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="awK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\awK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="show-engine-move" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\show-engine-move.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="new-game" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\new-game.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="awN1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\awN1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arrow-left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow-left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="abP1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\abP1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="awQ1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\awQ1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="abK1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\abK1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="attacked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\attacked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="abB1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\abB1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="white-engine-avi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\white-engine-avi.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="flip-board" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flip-board.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="awK1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\awK1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="abR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\abR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="awQ" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\awQ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="attackedOccupied" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\attackedOccupied.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="abK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\abK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="black-engine-avi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\black-engine-avi.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="awR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\awR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="undo-move" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\undo-move.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="abN1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\abN1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="abB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\abB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="attackedOccupied1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\attackedOccupied1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="attacked1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\attacked1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="abN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\abN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="awR1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\awR1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="abQ" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\abQ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_dop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\default_dop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="awP1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\awP1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="awN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\awN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="previous" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\previous.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skip" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\skip.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

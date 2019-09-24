@@ -39,3 +39,49 @@ S:\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.Resources.
 S:\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.SettingsForm.resources
 S:\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.vbproj.GenerateResource.Cache
 S:\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.exe
+S:\Visual Studio\[0]Project\PROJECT\Chess\Chess VB2010\Chess VB2010\bin\Debug\Chess VB2010.exe
+S:\Visual Studio\[0]Project\PROJECT\Chess\Chess VB2010\Chess VB2010\bin\Debug\Chess VB2010.pdb
+S:\Visual Studio\[0]Project\PROJECT\Chess\Chess VB2010\Chess VB2010\bin\Debug\Chess VB2010.xml
+S:\Visual Studio\[0]Project\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.vbprojResolveAssemblyReference.cache
+S:\Visual Studio\[0]Project\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.InterfaceForm.resources
+S:\Visual Studio\[0]Project\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.Resources.resources
+S:\Visual Studio\[0]Project\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.SettingsForm.resources
+S:\Visual Studio\[0]Project\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.vbproj.GenerateResource.Cache
+S:\Visual Studio\[0]Project\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.exe
+S:\Visual Studio\[0]Project\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.xml
+S:\Visual Studio\[0]Project\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.pdb
+S:\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.vbprojResolveAssemblyReference.cache
+\\lpbs-file-02\2012$\reeves-martina07478\PROJECT\Chess\Chess VB2010\Chess VB2010\bin\Debug\Chess VB2010.exe
+\\lpbs-file-02\2012$\reeves-martina07478\PROJECT\Chess\Chess VB2010\Chess VB2010\bin\Debug\Chess VB2010.pdb
+\\lpbs-file-02\2012$\reeves-martina07478\PROJECT\Chess\Chess VB2010\Chess VB2010\bin\Debug\Chess VB2010.xml
+\\lpbs-file-02\2012$\reeves-martina07478\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.vbprojAssemblyReference.cache
+\\lpbs-file-02\2012$\reeves-martina07478\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.InterfaceForm.resources
+\\lpbs-file-02\2012$\reeves-martina07478\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.Resources.resources
+\\lpbs-file-02\2012$\reeves-martina07478\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.SettingsForm.resources
+\\lpbs-file-02\2012$\reeves-martina07478\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.vbproj.GenerateResource.cache
+\\lpbs-file-02\2012$\reeves-martina07478\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.vbproj.CoreCompileInputs.cache
+\\lpbs-file-02\2012$\reeves-martina07478\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.exe
+\\lpbs-file-02\2012$\reeves-martina07478\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.xml
+\\lpbs-file-02\2012$\reeves-martina07478\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.pdb
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\bin\Debug\Chess VB2010.exe
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\bin\Debug\Chess VB2010.pdb
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\bin\Debug\Chess VB2010.xml
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.InterfaceForm.resources
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.Resources.resources
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.SettingsForm.resources
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.vbproj.GenerateResource.Cache
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.exe
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.xml
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.pdb
+C:\Users\Harley Reeves-Martin\Desktop\PROJECT\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.vbprojResolveAssemblyReference.cache
+C:\Users\Harley Reeves-Martin\Desktop\project with scroll\Chess\Chess VB2010\Chess VB2010\bin\Debug\Chess VB2010.exe
+C:\Users\Harley Reeves-Martin\Desktop\project with scroll\Chess\Chess VB2010\Chess VB2010\bin\Debug\Chess VB2010.pdb
+C:\Users\Harley Reeves-Martin\Desktop\project with scroll\Chess\Chess VB2010\Chess VB2010\bin\Debug\Chess VB2010.xml
+C:\Users\Harley Reeves-Martin\Desktop\project with scroll\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.vbprojResolveAssemblyReference.cache
+C:\Users\Harley Reeves-Martin\Desktop\project with scroll\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.InterfaceForm.resources
+C:\Users\Harley Reeves-Martin\Desktop\project with scroll\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.Resources.resources
+C:\Users\Harley Reeves-Martin\Desktop\project with scroll\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess_VB2010.SettingsForm.resources
+C:\Users\Harley Reeves-Martin\Desktop\project with scroll\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.vbproj.GenerateResource.Cache
+C:\Users\Harley Reeves-Martin\Desktop\project with scroll\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.exe
+C:\Users\Harley Reeves-Martin\Desktop\project with scroll\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.xml
+C:\Users\Harley Reeves-Martin\Desktop\project with scroll\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\Chess VB2010.pdb
