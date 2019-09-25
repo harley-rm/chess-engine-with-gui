@@ -123,7 +123,7 @@ Public Class cAccount
 
     Public Shared Function hash_pword(p As String) As String
         Dim r As String = Nothing
-        Dim provider As System.Security.Cryptography.SHA256CryptoServiceProvider = New Security.Cryptography.SHA256CryptoServiceProvider
+        Dim provider As System.Security.Cryptography.MD5CryptoServiceProvider = New Security.Cryptography.MD5CryptoServiceProvider
         Dim bytes As Byte() = provider.ComputeHash(System.Text.Encoding.ASCII.GetBytes(p))
         r = System.Text.Encoding.ASCII.GetString(bytes)
         Return r

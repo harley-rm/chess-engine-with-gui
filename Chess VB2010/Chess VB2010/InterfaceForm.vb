@@ -166,7 +166,6 @@ Public Class InterfaceForm
         gui_panel = chess.get_gui
         Me.min_size = Me.Size
         settings.enact(Me, gui_panel)
-        media = New media_controller(Me.select_button, Me.start_stop_button, Me.skip_button, Me.prev_button)
         cAccount.initialize_account_management()
     End Sub
 

@@ -97,3 +97,18 @@ C:\Users\Harley Reeves-Martin\Desktop\Chess\Chess VB2010\Chess VB2010\obj\x86\De
 C:\Users\Harley Reeves-Martin\Desktop\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.exe
 C:\Users\Harley Reeves-Martin\Desktop\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.xml
 C:\Users\Harley Reeves-Martin\Desktop\Chess\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.pdb
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\bin\Debug\chess.exe
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\bin\Debug\chess.pdb
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\bin\Debug\chess.xml
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.vbprojAssemblyReference.cache
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.cAccountWindow.resources
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.InterfaceForm.resources
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.LoginForm.resources
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.Resources.resources
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.game_end_form.resources
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.SettingsForm.resources
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.SignupForm.resources
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.vbproj.GenerateResource.cache
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.exe
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.xml
+C:\Users\Harle\Documents\GitHub\chess-engine-with-gui\Chess VB2010\Chess VB2010\obj\x86\Debug\chess.pdb

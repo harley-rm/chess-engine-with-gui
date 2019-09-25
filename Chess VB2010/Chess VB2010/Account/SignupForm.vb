@@ -83,7 +83,10 @@
         End If
     End Sub
 
-    Private Sub Password_textbox_TextChanged(sender As Object, e As EventArgs) Handles password_textbox.TextChanged
-
+    Private Sub e_keydown(sender As Object, e As KeyEventArgs) Handles password_textbox.KeyDown, username_textbox.KeyDown, elo_nud.KeyDown
+        If (e.KeyData = Keys.Enter) Then
+            e_signup_click(create_button, Nothing)
+        End If
     End Sub
+
 End Class
